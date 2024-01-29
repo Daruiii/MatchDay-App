@@ -6,8 +6,38 @@
     },
     "plugins": [
       "expo-router"
-    ],
-    "name": "matchDay",
-    "slug": "matchDay"
+        ],
+    "name": "MatchDay",
+    "slug": "matchDay",
+    "version": "1.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/images/MD.png",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "5115b6fd-c12e-4b85-b763-0fcefdc88680"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.darui.matchDay",
+      "supportsTablet": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/5115b6fd-c12e-4b85-b763-0fcefdc88680"
+    },
+    "android": {
+      "package": "com.darui.matchDay",
+      "versionCode": 2,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/MD.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "useNextNotificationsApi": true
+    }
   }
 }
