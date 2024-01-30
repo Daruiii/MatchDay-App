@@ -132,10 +132,10 @@ const TournamentRankings = ({ tournamentId, colors, openRosterModal }) => {
             ) : (
                 <View style={styles.modalBodyContent}>
                     <View style={styles.modalBodyContentTitle(colors?.eventColor)}>
-                        <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>Classement</Text>
+                        <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>Ranking</Text>
                     </View>
                     <View style={styles.modalBodyContentTeam(colors?.eventColor)}>
-                        <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>No data available</Text>
+                        <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>Not available at the moment</Text>
                     </View>
                 </View>
             )
