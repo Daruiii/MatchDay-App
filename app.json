@@ -6,10 +6,10 @@
     },
     "plugins": [
       "expo-router"
-        ],
+    ],
     "name": "MatchDay",
     "slug": "matchDay",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/MD.png",
     "extra": {
@@ -32,7 +32,7 @@
     },
     "android": {
       "package": "com.darui.matchDay",
-      "versionCode": 2,
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/MD.png",
         "backgroundColor": "#FFFFFF"
