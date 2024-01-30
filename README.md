@@ -1,5 +1,7 @@
 # MatchDay
 
+MatchDay, your ultimate esports companion, brings you the thrill of tracking multiple teams effortlessly. With the intuitive PandaScore API integration, add teams seamlessly, customize colors, and stay engaged with upcoming and past events.
+
 ## How to run the app
 
 1. Install [npm](https://www.npmjs.com/get-npm)

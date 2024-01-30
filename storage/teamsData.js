@@ -224,6 +224,16 @@ const defaultTeams = [
         country: "FR"
     },
     {
+        image_url: "https://cdn.pandascore.co/images/team/image/132475/valiant_valorant.png",
+        backgroundColor: "#191447",
+        eventColor: "#5a6382",
+        eventTextColor: "#ffffff",
+        secondColor: "#cc2638",
+        teamName: "valiant",
+        displayedName: "Valiant",
+        country: "FR"
+    },
+    {
         image_url: "https://cdn.pandascore.co/images/team/image/132529/aegis__2528_french_team_2529logo_profile.png",
         backgroundColor: "#42351e",
         eventColor: "#fdf3d1",
@@ -231,9 +241,6 @@ const defaultTeams = [
         secondColor: "#ca952a",
         teamName: "aegis",
         displayedName: "Aegis",
-        slugs: [
-            "aegis"
-        ],
         country: "FR"
     },
     {
