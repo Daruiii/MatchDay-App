@@ -9,7 +9,7 @@
     ],
     "name": "MatchDay",
     "slug": "matchDay",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/MD.png",
     "extra": {
@@ -32,7 +32,7 @@
     },
     "android": {
       "package": "com.darui.matchDay",
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/MD.png",
         "backgroundColor": "#FFFFFF"
