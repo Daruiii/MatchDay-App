@@ -4,7 +4,7 @@ import { TouchableOpacity, Text, View, Image } from 'react-native'
 import styles from './eventTabs.style'
 import { icons } from '../../../constants'
 
-const TabButton = ({ name, activeTab, onHandlePress, underLineColor, textColor, backgroundColor }) => {
+const TabButton = ({ name, activeTab, onHandlePress, underLineColor, textColor, backgroundColor, eventColor }) => {
     return (
       <TouchableOpacity
         style={styles.btn(name, activeTab, underLineColor, backgroundColor)}
@@ -14,7 +14,7 @@ const TabButton = ({ name, activeTab, onHandlePress, underLineColor, textColor, 
           <Image source={icons[name]} resizeMode="contain" style={{
             width: 20,
             height: 20,
-            tintColor: activeTab === name ? underLineColor : textColor
+            tintColor: activeTab === name ? underLineColor : eventColor
           }} />
           :
           <Text style={styles.btnText(name, activeTab, textColor)}>{name}</Text>
@@ -23,7 +23,7 @@ const TabButton = ({ name, activeTab, onHandlePress, underLineColor, textColor, 
     )
   }
 
-const EventTabs = ({ tabs, activeTab, setActiveTab, backgroundColor, secondColor, textColor }) => {
+const EventTabs = ({ tabs, activeTab, setActiveTab, backgroundColor, secondColor, textColor, eventColor }) => {
     return (
         <View style={styles.container(backgroundColor, secondColor, textColor)}>
           { tabs.map((name, item) => (
@@ -35,6 +35,7 @@ const EventTabs = ({ tabs, activeTab, setActiveTab, backgroundColor, secondColor
                     underLineColor={secondColor}
                     textColor={textColor}
                     backgroundColor={backgroundColor}
+                    eventColor={eventColor}
                 />
                 ))}
         </View>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Pressable, Image, Modal, ScrollView } from 'react-native'
+import { View, Text, Pressable, Image, Modal, ScrollView, ActivityIndicator } from 'react-native'
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { getModalTournamentData, getModalTournamentRankingData } from '../../../hooks/getModalData';
@@ -93,14 +93,31 @@ const TournamentThree = ({ teamData, colors, openRosterModal }) => {
 const TournamentRankings = ({ tournamentId, colors, openRosterModal }) => {
     const [tournamentRankings, setTournamentRankings] = useState(null);
     const myTeamSlug = colors?.teamName;
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         if (tournamentId) {
             getModalTournamentRankingData(tournamentId).then((data) => {
                 setTournamentRankings(data)
-            })
+                setIsLoading(false)
+            }).catch((error) => {
+                console.log(error)
+            }
+            )
         }
     }, [tournamentId])
 
+    if (isLoading) {
+        return (
+            <View style={styles.modalBodyContent}>
+                <View style={styles.modalBodyContentTitle(colors?.eventColor)}>
+                    <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>Ranking</Text>
+                </View>
+                <View style={styles.modalBodyContentTeam(colors?.eventColor)}>
+                    <ActivityIndicator size="small" color={colors?.eventTextColor} />
+                </View>
+            </View>
+        )
+    }
     return (
         <View>
             {tournamentRankings ? (
@@ -208,7 +225,7 @@ const TournamentModal = ({ tournamentId, tournamentModalVisible, setTournamentMo
                         <View style={styles.line(colors?.secondColor)} />
 
                         <View style={styles.modalBody}>
-                            <EventTabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} backgroundColor={colors?.backgroundColor} secondColor={colors?.secondColor} textColor={colors?.eventTextColor} />
+                            <EventTabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} backgroundColor={colors?.backgroundColor} secondColor={colors?.secondColor} textColor={colors?.eventTextColor} eventColor={colors?.eventColor} />
                             <View style={styles.modalBodyContentTitle(colors?.eventColor)}>
                                 <Text style={styles.modalBodyContentTeamText(colors?.eventTextColor)}>{teamData[0]?.tournament?.name.toUpperCase()}</Text>
                             </View>
