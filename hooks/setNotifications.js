@@ -129,6 +129,7 @@ const scheduleNotification = async (nextMatch, key) => {
                     title: `${nextMatch?.opponents[0]?.opponent?.acronym} vs ${nextMatch?.opponents[1].opponent.acronym} starts now !`,
                     body: `[${nextMatch?.videogame?.name}](${nextMatch?.league?.name}) ${nextMatch?.name}`,
                     data: { data: 'goes here' },
+                    sound: 'default',
                 },
                 trigger: { seconds: secondsUntilMatch, repeats: false },
             });
@@ -139,6 +140,7 @@ const scheduleNotification = async (nextMatch, key) => {
                     title: `${nextMatch?.opponents[0]?.opponent?.acronym} vs ${nextMatch?.opponents[1].opponent.acronym} starts in ${key} minutes !`,
                     body: `[${nextMatch?.videogame?.name}](${nextMatch?.league?.name}) ${nextMatch?.name}`,
                     data: { data: 'goes here' },
+                    sound: 'default',
                 },
                 trigger: { seconds: secondsUntilMatch, repeats: false },
             });
