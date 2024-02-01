@@ -94,8 +94,8 @@ const InitToken = () => {
                                         setModalVisible(false);
                                     }}
                                 />
-                                <View style={{ alignItems: "center", justifyContent: "center", backgroundColor: COLORS.white, width: "90%", height: "40%", borderRadius: 20, borderWidth: 2, borderColor: COLORS.pandaPurple }}>
-                                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 15 }}>
+                                <View style={{ alignItems: "center", justifyContent: "center", backgroundColor: COLORS.white, width: "90%", height: "35%", borderRadius: 20, borderWidth: 2, borderColor: COLORS.pandaPurple }}>
+                                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap:15 }}>
                                         <Text style={{ color: COLORS.black, fontSize: SIZES.medium, fontFamily:"RogueHero",textAlign:"center" }}>
                                             You must set a token to use the application !
                                         </Text>
@@ -149,13 +149,13 @@ const InitToken = () => {
 
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin: 20 }}>
                     <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.large, fontFamily:"RogueHero2" }}>How to get your token ?</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>1. Click on the button on the top right and follow the link</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>2. Create an account or login</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>3. Go to your account</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>4. Copy your token</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>5. Paste it in the input</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>6. Click on save</Text>
-                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10 }}>7. Enjoy !</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>1. Click on the button on the top right and follow the link</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>2. Create an account or login</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>3. Go to your account</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>4. Copy your token</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>5. Paste it in the input</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>6. Click on save</Text>
+                    <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily:"RogueHero2", marginTop: 10,textAlign:"center" }}>7. Enjoy !</Text>
                 </View>
             </ScrollView>
 
