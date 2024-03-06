@@ -99,12 +99,10 @@ const styles = StyleSheet.create({
   },
 
   eventGame : {
-    width: "20%",
+    flex : 1,
     borderRadius: 10,
     height: 30,
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    // backgroundColor: COLORS.secondary,
   },
   eventGameImg : (secondColor)=> ({
     width: 26,
@@ -120,17 +118,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
   }),
   eventDate : {
-    width: "30%",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    flex : 1,
     // backgroundColor: COLORS.secondary,
   },
   eventTime : {
-    width: "15%",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
+    flex : 1,
+    alignItems: "flex-end",
     // backgroundColor: COLORS.secondary,
   },
   headText: (textColor) => ({

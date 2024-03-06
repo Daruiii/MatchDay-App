@@ -20,6 +20,7 @@ const TeamForm = ({ updateTeams, teams, team }) => {
     slugs : team[0]?.slugs || [],
     disabledSlugs : team[0]?.disableSlugs || [],
     image_url: team[0]?.image_url || '',
+    notificate: team[0]?.notificate || false
   });
 
   const handleAddGame = (slug) => {
@@ -40,7 +41,7 @@ const TeamForm = ({ updateTeams, teams, team }) => {
 
 
   const handleSubmit = async () => {
-    const { teamName, backgroundColor, secondColor, eventColor, eventTextColor, slugs, disabledSlugs, image_url
+    const { teamName, backgroundColor, secondColor, eventColor, eventTextColor, slugs, disabledSlugs, image_url, notificate
      } = teamData;
 
     if (!teamName) {
@@ -57,7 +58,8 @@ const TeamForm = ({ updateTeams, teams, team }) => {
         eventTextColor || COLORS.white,
         slugs || [],
         disabledSlugs || [],
-        image_url || ''
+        image_url || '',
+        notificate || false
       );
 
       await updateTeams((prevTeams) =>
