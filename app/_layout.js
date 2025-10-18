@@ -2,6 +2,8 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import { AppProvider } from '../contexts/AppContext';
+import { preloadCriticalComponents } from '../components/lazy/LazyComponents';
 
 // Empêcher le splash screen de se cacher automatiquement
 SplashScreen.preventAutoHideAsync();
@@ -16,6 +18,8 @@ const Layout = () => {
         if (fontsLoaded || fontError) {
             // Cacher le splash screen une fois les polices chargées
             SplashScreen.hideAsync();
+            // Preload des composants critiques une fois l'app stable
+            preloadCriticalComponents();
         }
     }, [fontsLoaded, fontError]);
 
@@ -25,11 +29,13 @@ const Layout = () => {
     }
 
     return (
-        <Stack
-            screenOptions={{
-                headerShown: true,
-            }}
-        />
+        <AppProvider>
+            <Stack
+                screenOptions={{
+                    headerShown: true,
+                }}
+            />
+        </AppProvider>
     );
 };
 
