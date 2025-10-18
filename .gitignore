@@ -35,3 +35,8 @@ Thumbs.db
 # Temporary
 .tmp/
 .cache/
+
+# Notes personnelles
+oups.md
+notes.md
+todo.md

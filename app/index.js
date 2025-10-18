@@ -7,6 +7,7 @@ import { HeaderBtn, Navbar, Next, FixedBtn, UpcomingRow } from '../components';
 import { getNextMatch } from '../hooks/setNotifications';
 
 import { getObjectData, storeObjectData, removeObjectData } from '../storage/data';
+import { hasValidToken, storeSecureToken } from '../storage/secureStorage';
 
 
 const Home = () => {
@@ -18,17 +19,9 @@ const Home = () => {
     const [token, setToken] = useState('');
 
     useEffect(() => { // check if token is set
-        getObjectData('token').then((value) => {
-            if (value === null) {
-                storeObjectData('token', '');
+        hasValidToken().then((isValid) => {
+            if (!isValid) {
                 router.replace('/token/initToken');
-            }
-            else if (value === '') {
-                router.replace('/token/initToken');
-                // alert("Please enter your PandaScore Token");
-            }
-            else {
-                setToken(value);
             }
         });
         const fetchNotifSettings = async () => {

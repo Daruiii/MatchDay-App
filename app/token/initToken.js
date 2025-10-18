@@ -6,6 +6,8 @@ import { COLORS, icons, SIZES, images } from '../../constants';
 import { HeaderBtn, Navbar, MyTeams, FixedBtn } from '../../components';
 
 import { getObjectData, storeObjectData, updateObjectData } from '../../storage/data';
+import { storeSecureToken, getSecureToken, hasValidToken } from '../../storage/secureStorage';
+import { navigateSecurely } from '../../utils/urlValidator';
 
 const InitToken = () => {
     const router = useRouter();
@@ -24,16 +26,20 @@ const InitToken = () => {
     }
 
     const handlePressSave = async () => {
-        storeObjectData('token', token);
-        router.push('/');
+        const success = await storeSecureToken(token);
+        if (success) {
+            router.push('/');
+        } else {
+            alert('Erreur: Format de token invalide');
+        }
     }
 
     useEffect(() => {
         const fetchToken = async () => {
             setIsLoading(true);
             try {
-                const token = await getObjectData('token');
-                setToken(token);
+                const token = await getSecureToken();
+                setToken(token || '');
             } catch (error) {
                 setError(error.message);
             }
@@ -104,9 +110,13 @@ const InitToken = () => {
                                         </Text>
                                         <Pressable
                                             style={{ backgroundColor: COLORS.pandaPurple, padding: 10, borderRadius: 20, marginTop: 10 }}
-                                            onPress={() => {
+                                            onPress={async () => {
                                                 setModalVisible(false);
-                                                router.push('https://app.pandascore.co/login');
+                                                try {
+                                                    await navigateSecurely('https://app.pandascore.co/login');
+                                                } catch (error) {
+                                                    alert('Impossible d\'ouvrir le lien de connexion');
+                                                }
                                             }}
                                         >
                                             <Text style={{ color: COLORS.white, fontSize: SIZES.large, fontFamily:"RogueHero2", padding: 5 }}>

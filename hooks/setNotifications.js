@@ -1,6 +1,7 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getObjectData } from '../storage/data';
+import { getSecureToken } from '../storage/secureStorage';
 import refresh from "./autoReloadToken";
 
 import * as Notifications from 'expo-notifications';
@@ -12,7 +13,7 @@ const getNextMatch = async (slugs, router = null) => {
         return;
     }
     try {
-        const token = await getObjectData('token');
+        const token = await getSecureToken();
         const matchPromises = slugs.map(async (slug) => {
             const options = {
                 method: 'GET',
@@ -49,11 +50,12 @@ const getNextMatch = async (slugs, router = null) => {
         }
         return nextMatch;
     } catch (error) {
-        const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-            // alert("Refreshing token... ");
-            console.log("Refreshing token... by getNextMatch");
-            refresh(token);
+            console.log("Rate limit atteinte, refresh token nécessaire");
+            const token = await getSecureToken();
+            if (token) {
+                refresh(token);
+            }
         }
         if (error.response && error.response.status === 401) {
             console.log("Token expired. Please check your token.");
