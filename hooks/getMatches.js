@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'expo-router';
 import { getObjectData } from '../storage/data';
 import refresh from "./autoReloadToken";
 
-const getPastMatches = async (slugs) => {
-    const router = useRouter();
+const getPastMatches = async (slugs, router = null) => {
     if (!slugs) {
         return;
     }
@@ -44,16 +42,17 @@ const getPastMatches = async (slugs) => {
         }
         if (error.response && error.response.status === 401) {
             console.log("Token expired. Please check your token.");
-            // router.replace("/token/initToken");
+            if (router) {
+                router.replace("/token/initToken");
             }
+        }
             else {
             console.log(error);
             }
     }
 }
 
-const getUpcomingMatches = async (slugs) => {
-    const router = useRouter();
+const getUpcomingMatches = async (slugs, router = null) => {
     if (!slugs) {
         return;
     }
@@ -90,17 +89,17 @@ const getUpcomingMatches = async (slugs) => {
         }
         if (error.response && error.response.status === 401) {
             console.log("Token expired. Please check your token.");
-            // router.replace("/token/initToken");
+            if (router) {
+                router.replace("/token/initToken");
             }
-            else {
+        }
+        else {
             console.log(error);
-            // router.replace("/token/initToken");
-            }
+        }
     }
 }
 
-const getNextMatch = async (slugs) => {
-    const router = useRouter();
+const getNextMatch = async (slugs, router = null) => {
     if (!slugs) {
         return;
     }
@@ -138,12 +137,13 @@ const getNextMatch = async (slugs) => {
         }
         if (error.response && error.response.status === 401) {
             console.log("Token expired. Please check your token.");
-            router.replace("/token/initToken");
+            if (router) {
+                router.replace("/token/initToken");
             }
-            else {
+        }
+        else {
             console.log(error);
-            // router.replace("/token/initToken");
-            }
+        }
     }
 }
 

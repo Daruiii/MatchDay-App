@@ -1,14 +1,12 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useRouter } from 'expo-router';
 import { getObjectData } from '../storage/data';
 import refresh from "./autoReloadToken";
 
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 
-const getNextMatch = async (slugs) => {
-    const router = useRouter();
+const getNextMatch = async (slugs, router = null) => {
 
     if (!slugs) {
         return;
@@ -59,7 +57,9 @@ const getNextMatch = async (slugs) => {
         }
         if (error.response && error.response.status === 401) {
             console.log("Token expired. Please check your token.");
-            router.replace("/token/initToken");
+            if (router) {
+                router.replace("/token/initToken");
+            }
         }
         else {
             console.log(error);
@@ -71,7 +71,8 @@ const scheduleNotification = async (nextMatch, key) => {
     //configure notification for they can emit a sound
     Notifications.setNotificationHandler({
         handleNotification: async () => ({
-            shouldShowAlert: true,
+            shouldShowBanner: true,
+            shouldShowList: true,
             shouldPlaySound: true,
             shouldSetBadge: false,
         }),

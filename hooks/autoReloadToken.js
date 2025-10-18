@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { storeObjectData } from '../storage/data';
-import { useRouter } from "expo-router";
 
-const refresh = async (token) => {
-    const router = useRouter();
+const refresh = async (token, router = null) => {
     try {
         const optionsRefresh = {
             method: 'PUT',
@@ -19,7 +17,9 @@ const refresh = async (token) => {
         });
         // console.log("newToken: ", newToken);
         await storeObjectData('token', newToken);
-        router.replace('/');
+        if (router) {
+            router.replace('/');
+        }
     } catch (error) {
         console.log("dataError: ", error);
     }

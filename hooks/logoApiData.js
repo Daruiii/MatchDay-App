@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "expo-router";
 import { getObjectData, storeObjectData } from "../storage/data";
 import refresh from "./autoReloadToken";
 import images from "../constants/images";
 
-const LogoApiData = async () => {
-  const router = useRouter();
+const LogoApiData = async (router = null) => {
   try {
     const teamData = await getObjectData("teams");
     const token = await getObjectData("token");

@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useRouter } from "expo-router";
 import { getObjectData } from "../storage/data";
 import refresh from "./autoReloadToken";
 
-const getModalData = async (teamId) => {
-    const router = useRouter();
+const getModalData = async (teamId, router = null) => {
   try {
     const token = await getObjectData("token");
 
@@ -75,8 +73,7 @@ const getModalTournamentRankingData = async (tournamentId) => {
     }
 }
 
-const getModalTournamentData = async (tournamentId) => {
-  const router = useRouter();
+const getModalTournamentData = async (tournamentId, router = null) => {
 try {
   const token = await getObjectData("token");
 

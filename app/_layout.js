@@ -1,64 +1,36 @@
 import { Stack } from 'expo-router';
-import { useCallback, useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
-import { View, Image, StyleSheet } from 'react-native';
-
-import { COLORS, icons, SIZES, images } from '../constants';
 import * as SplashScreen from 'expo-splash-screen';
 
-SplashScreen.preventAutoHideAsync()
-
-const LoadingScreen = () => {
-    return (
-        <View style={{
-            flex: 1, backgroundColor: COLORS.headerBg,
-            justifyContent: 'center', alignItems: 'center'
-        }}>
-            <Image
-                source={images.icon}
-                resizeMode="contain"
-                style={{
-                    width: "100%",
-                    height: 100,
-                }}
-            />
-        </View>
-    );
-};
+// Empêcher le splash screen de se cacher automatiquement
+SplashScreen.preventAutoHideAsync();
 
 const Layout = () => {
-    const [fontsLoaded] = useFonts({
-        RogueHero: require('../assets/fonts/roguehero3d.ttf'),
-        RogueHero2: require('../assets/fonts/roguehero-complete.ttf'),
+    const [fontsLoaded, fontError] = useFonts({
+        'RogueHero': require('../assets/fonts/roguehero3d.ttf'),
+        'RogueHero2': require('../assets/fonts/roguehero-complete.ttf'),
     });
 
-    const [isLoading, setIsLoading] = useState(false);
-
     useEffect(() => {
-        if (fontsLoaded) {
-            setTimeout(async () => {
-                setIsLoading(true);
-            }, 2000);
+        if (fontsLoaded || fontError) {
+            // Cacher le splash screen une fois les polices chargées
+            SplashScreen.hideAsync();
         }
-    }, [fontsLoaded]);
+    }, [fontsLoaded, fontError]);
 
-    const onLayoutRootView = useCallback(async () => {
-        if (isLoading) {
-            await SplashScreen.hideAsync();
-        }
-    }, [isLoading]);
-
-    if (!isLoading) {
-        console.log('Loading...');
-        return <LoadingScreen />;
+    // Ne pas rendre l'app tant que les polices ne sont pas chargées
+    if (!fontsLoaded && !fontError) {
+        return null;
     }
 
-    return <Stack 
-    onLayout={onLayoutRootView}
-    options={{
-        headerBackVisible: false,
-    }}
-    />;
-}
+    return (
+        <Stack
+            screenOptions={{
+                headerShown: true,
+            }}
+        />
+    );
+};
 
 export default Layout;

@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, ImageBackground, Pressable } from 'react-native';
-import { Stack, useRouter, useSearchParams } from 'expo-router';
+import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { useState, useEffect } from 'react';
 
 import { COLORS, icons, SIZES, images } from '../../../constants';
@@ -9,7 +9,7 @@ import { getObjectData } from '../../../storage/data';
 
 const Update = () => {
     const router = useRouter();
-    const params = useSearchParams();
+    const params = useLocalSearchParams();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [teams, setTeams] = useState([]);

@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useRouter } from "expo-router";
 import { getObjectData } from "../storage/data";
 import refresh from "./autoReloadToken";
 
-const getNameAndVideoGame = async (slug) => {
-    const router = useRouter();
+const getNameAndVideoGame = async (slug, router = null) => {
   try {
     const token = await getObjectData("token");
 
@@ -33,7 +31,9 @@ const getNameAndVideoGame = async (slug) => {
         }
         if (error.response && error.response.status === 401) {
         console.log("Token expired. Please check your token.");
-        // router.replace("/token/initToken");
+        if (router) {
+            router.replace("/token/initToken");
+        }
         }
         else {
         console.log(error);

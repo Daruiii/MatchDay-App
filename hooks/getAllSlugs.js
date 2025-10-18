@@ -1,10 +1,8 @@
 import axios from "axios";
-import { useRouter } from "expo-router";
 import { getObjectData } from "../storage/data";
 import refresh from "./autoReloadToken";
 
-const getAllSlugs = async (teamName) => {
-    const router = useRouter();
+const getAllSlugs = async (teamName, router = null) => {
   try {
     const token = await getObjectData("token");
 
@@ -34,17 +32,20 @@ const getAllSlugs = async (teamName) => {
         }
         if (error.response && error.response.status === 401) {
         alert("Token expired. Please check your token.");
-        router.replace("/token/initToken");
+        if (router) {
+            router.replace("/token/initToken");
+        }
         }
         else {
         // alert("Error fetching logos. Please check your token.");
-        router.replace("/token/initToken");
+        if (router) {
+            router.replace("/token/initToken");
+        }
         }
       }
 };
 
-const getTeamLogo = async (teamName) => {
-    const router = useRouter();
+const getTeamLogo = async (teamName, router = null) => {
   try {
     const token = await getObjectData("token");
 
