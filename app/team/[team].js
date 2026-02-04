@@ -1,23 +1,16 @@
-import {
-  View,
-  Text,
-  ScrollView,
-  Image,
-  RefreshControl,
-  Pressable,
-} from "react-native";
-import { Stack, useRouter, useLocalSearchParams } from "expo-router";
+import { View, ScrollView, RefreshControl } from "react-native";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { useState, useEffect } from "react";
 
-import { COLORS, icons, SIZES, images } from "../../constants";
+import { icons } from "../../constants";
 import {
-  HeaderBtn,
   Navbar,
   EventTabs,
   FixedBtn,
   Upcoming,
   TeamHeader,
   Past,
+  PageHeader,
 } from "../../components";
 
 import { getObjectData, storeObjectData } from "../../storage/data";
@@ -93,52 +86,10 @@ const Team = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: team[0]?.backgroundColor }}>
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: COLORS.headerBg,
-          },
-          headerTitleStyle: {
-            color: COLORS.lightWhite,
-            fontSize: SIZES.xLarge,
-            fontWeight: "bold",
-            fontFamily: "RogueHero",
-          },
-          headerShadowVisible: true,
-          headerBackVisible: false,
-          headerRight: () => (
-            <HeaderBtn
-              iconUrl={icons.settings}
-              dimension="60%"
-              handlePress={() => router.push("/settings/settings")}
-            />
-          ),
-          headerLeft: () => (
-            <HeaderBtn
-              iconUrl={icons.menu}
-              dimension="60%"
-              handlePress={() => router.push("/menu/menu")}
-            />
-          ),
-          headerTitle: () => (
-            <Pressable
-              onPress={() => {
-                router.replace("/");
-              }}
-            >
-              <Image
-                source={images.icon}
-                resizeMode="contain"
-                style={{
-                  width: 50,
-                  height: 40,
-                  tintColor: COLORS.lightWhite,
-                }}
-              />
-            </Pressable>
-          ),
-          headerTitleAlign: "center",
-        }}
+      <PageHeader
+        title={params.team}
+        rightIcon={icons.settings}
+        onRightPress={() => router.push("/settings/settings")}
       />
       <EventTabs
         tabs={tabs}

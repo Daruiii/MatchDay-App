@@ -1,7 +1,7 @@
 const COLORS = {
   background: "#6a6882", // 141C2C
-  headerBg: "rgba(10,15,26,1)", // rgba(10,25,40,1)
-  footerBg: "rgba(10,15,26,0.98)", // rgba(10,15,26,1)
+  headerBg: "rgba(0, 0, 0, 1)", // rgba(10,25,40,1)
+  footerBg: "rgba(0, 0, 0, 0.98)", // rgba(10,15,26,1)
   addBtnBg: "rgba(10,15,26,0.85)", // 3B4556
   btnBg: "#3B4556", // 3B4556
   zero: "rgba(10,25,40,1)",

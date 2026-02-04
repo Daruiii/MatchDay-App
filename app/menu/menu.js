@@ -1,11 +1,9 @@
-import { View, Text, ScrollView, ActivityIndicator, ImageBackground, Pressable,RefreshControl, Image } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { View, Text, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
-import LogoApiData from '../../hooks/logoApiData';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { COLORS, icons, SIZES, images } from '../../constants';
-import { HeaderBtn, Navbar, MyTeams, FixedBtn } from '../../components';
+import { COLORS, icons, SIZES } from '../../constants';
+import { Navbar, MyTeams, FixedBtn, GradientBackground, PageHeader } from '../../components';
 
 import { getObjectData, storeObjectData, updateObjectData } from '../../storage/data';
 import refresh from '../../hooks/autoReloadToken';
@@ -74,39 +72,11 @@ const Menu = () => {
     }, [refreshing]);
     return (
         <View style={{ flex: 1 }}>
-            <ImageBackground source={images.background} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }} blurRadius={1}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLORS.headerBg,
-                        },
-                        headerTitleStyle: {
-                            color: COLORS.lightWhite,
-                            fontSize: SIZES.xLarge,
-                            fontWeight: "bold",
-                            fontFamily: 'RogueHero',
-                        },
-                        headerTitleAlign: 'center',
-                        headerShadowVisible: true,
-                        headerBackVisible: false,
-                        headerLeft: () => (
-                            <HeaderBtn
-                                iconUrl={icons.chevronLeft}
-                                dimension="60%"
-                                handlePress={() => router.push('/')}
-                            />
-                        ),
-                        headerRight: () => (
-                            <HeaderBtn iconUrl={icons.settings} dimension="60%" handlePress={handlePressSettings} />
-                        ),
-                        headerTitle: () => (
-                            <Pressable onPress={() => { router.replace('/') }}>
-                            <Image source={images.icon} resizeMode="contain" style={{
-                                width: 50, height: 40, tintColor: COLORS.lightWhite,
-                            }} />
-                            </Pressable>
-                        ),
-                    }}
+            <GradientBackground>
+                <PageHeader
+                    title="My Teams"
+                    rightIcon={icons.settings}
+                    onRightPress={handlePressSettings}
                 />
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, marginBottom: 30 }}
                   refreshControl={
@@ -160,7 +130,7 @@ const Menu = () => {
                 </ScrollView>
                 <FixedBtn iconUrl={icons.plus} dimension="60%" handlePress={handlePressAdd} bgColor={COLORS.addBtnBg} />
                 <Navbar teams={teams} />
-            </ImageBackground>
+            </GradientBackground>
         </View>
     )
 }

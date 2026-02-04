@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, ActivityIndicator, Pressable, Image, ImageBackground, Switch } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { View, Text, ScrollView, ActivityIndicator, Pressable, Image } from 'react-native';
+import { useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
 
-import { COLORS, icons, SIZES, images } from '../../constants';
-import { HeaderBtn, Navbar, MyTeams, FixedBtn, NotifSwitch } from '../../components';
+import { COLORS, icons, SIZES } from '../../constants';
+import { Navbar, NotifSwitch, GradientBackground, PageHeader } from '../../components';
 
 import { getObjectData, storeObjectData } from '../../storage/data';
 
@@ -23,36 +23,8 @@ const Settings = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <ImageBackground source={images.background} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }} blurRadius={1}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLORS.headerBg,
-                        },
-                        headerTitleStyle: {
-                            color: COLORS.lightWhite,
-                            fontSize: SIZES.xLarge,
-                            fontWeight: "bold",
-                            fontFamily: 'RogueHero',
-                        },
-                        headerTitleAlign: 'center',
-                        headerShadowVisible: true,
-                        headerBackVisible: false,
-                        headerLeft: () => (
-                            ""
-                        ),
-                        headerRight: () => (
-                            ""
-                        ),
-                        headerTitle: () => (
-                            <Pressable onPress={() => { router.replace('/') }}>
-                            <Image source={images.icon} resizeMode="contain" style={{
-                                width: 50, height: 40, tintColor: COLORS.lightWhite,
-                            }} />
-                            </Pressable>
-                        ),
-                    }}
-                />
+            <GradientBackground>
+                <PageHeader title="Settings" />
 
                 <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
                     {isLoading ? (
@@ -88,7 +60,7 @@ const Settings = () => {
                     )}
                 </ScrollView>
                 <Navbar />
-            </ImageBackground>
+            </GradientBackground>
         </View>
     )
 }

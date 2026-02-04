@@ -5,6 +5,8 @@ import MyTeams from "./teams/MyTeams";
 import EventBtn from "./teams/button/EventBtn";
 import TeamForm from "./teams/form/TeamForm";
 import FixedBtn from "./common/FixedBtn";
+import GradientBackground from "./common/GradientBackground";
+import PageHeader from "./common/PageHeader";
 import ColorPickerForm from "./teams/form/ColorPickerForm";
 import EventTabs from "./teams/team/EventTabs";
 import GamesBtn from "./teams/button/GamesBtn";
@@ -26,6 +28,8 @@ export {
   EventBtn,
   TeamForm,
   FixedBtn,
+  GradientBackground,
+  PageHeader,
   ColorPickerForm,
   EventTabs,
   GamesBtn,

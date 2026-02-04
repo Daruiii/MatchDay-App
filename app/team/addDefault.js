@@ -1,10 +1,10 @@
-import { View, Text, ScrollView, Image, Pressable, ImageBackground } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { View, Text, ScrollView, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import SelectDropdown from 'react-native-select-dropdown';
 import { useState, useEffect } from 'react';
 
-import { COLORS, icons, SIZES, images } from '../../constants';
-import { HeaderBtn, Navbar, DefaultTeams } from '../../components';
+import { COLORS, SIZES } from '../../constants';
+import { Navbar, DefaultTeams, GradientBackground, PageHeader } from '../../components';
 import { defaultTeams } from '../../storage/teamsData';
 import flagsData from '../../storage/flagsData.json';
 
@@ -75,32 +75,8 @@ const AddDefault = () => {
 
     return (
         <View style={{ flex: 1 }}>
-            <ImageBackground source={images.background} style={{ flex: 1, resizeMode: "cover", justifyContent: "center" }} blurRadius={1}>
-                <Stack.Screen
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLORS.headerBg,
-                        },
-                        headerTitleStyle: {
-                            color: COLORS.lightWhite,
-                            fontSize: SIZES.xLarge,
-                            fontFamily: 'RogueHero',
-                        },
-                        headerShadowVisible: true,
-                        headerBackVisible: false,
-                        headerLeft: () => (
-                            ""
-                        ),
-                        headerTitle:() => (
-                            <Pressable onPress={() => { router.replace('/') }}>
-                            <Image source={images.icon} resizeMode="contain" style={{
-                                width: 50, height: 40, tintColor: COLORS.lightWhite,
-                            }} />
-                            </Pressable>
-                        ),
-                        headerTitleAlign: 'center',
-                    }}
-                />
+            <GradientBackground>
+                <PageHeader title="Add Team" />
                 <View style={{ flex: 1 }}>
                     <Pressable onPress={handlePressAdd} style={{ backgroundColor: COLORS.info, padding: 10, borderRadius: 10, marginHorizontal: 60, marginTop: 20 }}>
                         <Text style={{ color: COLORS.white, fontSize: SIZES.medium, fontFamily: "RogueHero2", textAlign: 'center' }}>
@@ -144,7 +120,7 @@ const AddDefault = () => {
                 </View>
 
                 <Navbar />
-            </ImageBackground>
+            </GradientBackground>
         </View>
     )
 }
