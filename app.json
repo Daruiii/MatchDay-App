@@ -22,7 +22,10 @@
     },
     "ios": {
       "bundleIdentifier": "com.darui.matchDay",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "runtimeVersion": {
       "policy": "appVersion"
