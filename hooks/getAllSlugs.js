@@ -15,11 +15,7 @@ const getAllSlugs = async (teamName, router = null) => {
         },
       };
       const slugs = await axios.request(options).then(function (response) {
-        const allSlugs = response.data.map((team) => {
-          console.log(team.slug);
-            return team.slug;
-        }
-        );
+        const allSlugs = response.data.map((team) => team.slug);
         return allSlugs;
       });
       return slugs;
@@ -27,20 +23,10 @@ const getAllSlugs = async (teamName, router = null) => {
     } catch (error) {
         const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-        alert("Refreshing token... ");
-        () => refresh(token);
+          refresh(token);
         }
-        if (error.response && error.response.status === 401) {
-        alert("Token expired. Please check your token.");
-        if (router) {
-            router.replace("/token/initToken");
-        }
-        }
-        else {
-        // alert("Error fetching logos. Please check your token.");
-        if (router) {
-            router.replace("/token/initToken");
-        }
+        if (error.response && error.response.status === 401 && router) {
+          router.replace("/token/initToken");
         }
       }
 };
@@ -68,20 +54,13 @@ const getTeamLogo = async (teamName, router = null) => {
       return logo;
 
     } catch (error) {
-        const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-          // alert("Refreshing token... ");
-          console.log("Refreshing token... by getAllSlugs");
-          // refresh(token);
-      }
-      if (error.response && error.response.status === 401) {
-          console.log("Token expired. Please check your token.");
-          // router.replace("/token/initToken");
-          }
-          else {
-          console.log(error);
-          // router.replace("/token/initToken");
-          }
+          const token = await getObjectData("token");
+          refresh(token);
+        }
+        if (error.response && error.response.status === 401 && router) {
+          router.replace("/token/initToken");
+        }
       }
 };
 

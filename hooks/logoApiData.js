@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
 import axios from "axios";
-import { getObjectData, storeObjectData } from "../storage/data";
+import { getObjectData } from "../storage/data";
 import refresh from "./autoReloadToken";
-import images from "../constants/images";
 
 const LogoApiData = async (router = null) => {
   try {
@@ -37,19 +35,13 @@ const LogoApiData = async (router = null) => {
     const logos = await Promise.all(logoPromises);
     return logos;
   } catch (error) {
-    const token = await getObjectData("token");
     if (error.response && error.response.status === 429) {
-    alert("Refreshing token... ");
-    refresh(token);
-    return;
+      const token = await getObjectData("token");
+      refresh(token);
+      return;
     }
-    if (error.response && error.response.status === 401) {
-    alert("Token expired. Please check your token.");
-    }
-    else {
-    // alert("Error fetching logos. Please check your token.");
-    console.log('Error fetching logos. Please check your token.');
-    // router.replace("/");
+    if (error.response && error.response.status === 401 && router) {
+      router.replace("/token/initToken");
     }
   }
 };

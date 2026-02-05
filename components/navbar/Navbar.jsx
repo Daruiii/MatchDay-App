@@ -1,42 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, View, ActivityIndicator, Text, Pressable, FlatList } from "react-native";
+import { useEffect, useState } from "react";
+import { View, Text, FlatList } from "react-native";
 import { useRouter } from "expo-router";
 import styles from "./navbar.style";
 import NavbarBtn from "../navbar/button/NavbarBtn";
 import { COLORS, icons, SIZES, images } from "../../constants";
-import LogoApiData from "../../hooks/logoApiData";
-import { getObjectData, storeObjectData } from '../../storage/data';
+import { getObjectData } from '../../storage/data';
 
 
 const Navbar = (teams) => {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [logos, setLogos] = useState([]);
   const [teamsData, setTeamsData] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-    // LogoApiData()
-    //   .then((retrievedLogos) => {
-    //     setLogos(retrievedLogos);
-    //     setIsLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     setError(error);
-    //     setIsLoading(false);
-    //   });
     const fetchTeams = async () => {
-      setIsLoading(true);
       try {
         const data = await getObjectData("teams");
         setTeamsData(data);
-        setIsLoading(false);
       } catch (error) {
-        console.log(error);
-        setError(error);
-        setIsLoading(false);
+        // Error fetching teams
       }
     }
     fetchTeams();
@@ -46,13 +27,8 @@ const Navbar = (teams) => {
     router.push("/");
   };
 
-  const handlePressAddDefault = () => {
-    router.replace('/team/addDefault');
-  }
-
   const handlePressNavbarBtn = (teamName) => {
     router.replace(`/team/${teamName}`)
-    console.log(teamName);
   }
 
   return (

@@ -23,21 +23,12 @@ const getNameAndVideoGame = async (slug, router = null) => {
         return teamNameAndVideoGame;
 
     } catch (error) {
-        const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-        // alert("Refreshing token... ");
-        console.log("Refreshing token... by getNameAndVideoGame");
-        // refresh(token);
+          const token = await getObjectData("token");
+          refresh(token);
         }
-        if (error.response && error.response.status === 401) {
-        console.log("Token expired. Please check your token.");
-        if (router) {
-            router.replace("/token/initToken");
-        }
-        }
-        else {
-        console.log(error);
-        // router.replace("/token/initToken");
+        if (error.response && error.response.status === 401 && router) {
+          router.replace("/token/initToken");
         }
       }
 }

@@ -25,10 +25,8 @@ export const storeSecureToken = async (token) => {
     }
     
     await SecureStore.setItemAsync(SECURE_KEYS.TOKEN, token);
-    console.log('Token stocké de façon sécurisée');
     return true;
   } catch (error) {
-    console.error('Erreur stockage sécurisé:', error.message);
     return false;
   }
 };
@@ -41,7 +39,6 @@ export const getSecureToken = async () => {
     }
     return null;
   } catch (error) {
-    console.error('Erreur récupération token:', error.message);
     return null;
   }
 };
@@ -49,10 +46,8 @@ export const getSecureToken = async () => {
 export const removeSecureToken = async () => {
   try {
     await SecureStore.deleteItemAsync(SECURE_KEYS.TOKEN);
-    console.log('Token supprimé de façon sécurisée');
     return true;
   } catch (error) {
-    console.error('Erreur suppression token:', error.message);
     return false;
   }
 };
@@ -71,10 +66,8 @@ export const storeObjectData = async (key, value) => {
     
     const jsonValue = JSON.stringify(value);
     await AsyncStorage.setItem(key, jsonValue);
-    console.log(`Données non-sensibles stockées: ${key}`);
     return true;
   } catch (error) {
-    console.error('Erreur stockage données:', error.message);
     return false;
   }
 };
@@ -84,7 +77,6 @@ export const getObjectData = async (key) => {
     const jsonValue = await AsyncStorage.getItem(key);
     return jsonValue != null ? JSON.parse(jsonValue) : null;
   } catch (error) {
-    console.error('Erreur récupération données:', error.message);
     return null;
   }
 };
@@ -92,10 +84,8 @@ export const getObjectData = async (key) => {
 export const removeObjectData = async (key) => {
   try {
     await AsyncStorage.removeItem(key);
-    console.log(`Données supprimées: ${key}`);
     return true;
   } catch (error) {
-    console.error('Erreur suppression données:', error.message);
     return false;
   }
 };

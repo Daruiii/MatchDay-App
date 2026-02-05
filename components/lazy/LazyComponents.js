@@ -72,7 +72,6 @@ export const preloadCriticalComponents = () => {
   setTimeout(() => {
     import('../teams/modal/RosterModal');
     import('../teams/modal/TournamentModal');
-    console.log('🚀 Composants critiques preloadés');
   }, 2000);
 };
 
@@ -86,8 +85,6 @@ export const preloadOnInteraction = (componentName) => {
 
   const preloader = preloadMap[componentName];
   if (preloader) {
-    preloader().then(() => {
-      console.log(`🎯 Composant ${componentName} preloadé`);
-    });
+    preloader();
   }
 };

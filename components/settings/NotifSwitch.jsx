@@ -1,7 +1,6 @@
-import React from 'react'
-import { TouchableOpacity, Image, Switch, Text, View } from 'react-native'
+import { Switch, Text, View } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { COLORS, SIZES } from "../../constants";
+import { COLORS } from "../../constants";
 import { useEffect, useState } from "react";
 import { cancelAllScheduledNotifications } from '../../hooks/setNotifications';
 
@@ -16,8 +15,8 @@ const NotifSwitch = ({ time }) => {
       // console.log(notifSwitch[time])
       setSwitchValue(notifSwitch[time])
       // console.log(switchValue)
-    }).catch((err) => {
-      console.log(err)
+    }).catch(() => {
+      // Error loading notification switch
     }
     )
   }
@@ -41,8 +40,8 @@ const NotifSwitch = ({ time }) => {
               cancelAllScheduledNotifications();
             }
           }
-          ).catch((err) => {
-            console.log(err)
+          ).catch(() => {
+            // Error saving notification switch
           }
           )
         }

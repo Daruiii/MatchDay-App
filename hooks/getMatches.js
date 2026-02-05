@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getObjectData } from '../storage/data';
 import refresh from "./autoReloadToken";
@@ -34,21 +33,9 @@ const getPastMatches = async (slugs, router = null) => {
         const sortedMatches = matches.flat().sort((a, b) => new Date(b.begin_at) - new Date(a.begin_at));
         return sortedMatches;
     } catch (error) {
-        const token = await getObjectData("token");
-        if (error.response && error.response.status === 429) {
-            // alert("Refreshing token... ");
-            console.log("Refreshing token... by getPastMatches");
-            // refresh(token);
+        if (error.response && error.response.status === 401 && router) {
+            router.replace("/token/initToken");
         }
-        if (error.response && error.response.status === 401) {
-            console.log("Token expired. Please check your token.");
-            if (router) {
-                router.replace("/token/initToken");
-            }
-        }
-            else {
-            console.log(error);
-            }
     }
 }
 
@@ -83,18 +70,10 @@ const getUpcomingMatches = async (slugs, router = null) => {
     } catch (error) {
         const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-            // alert("Refreshing token... ");
-            console.log("Refreshing token... by getUpcomingMatches");
             refresh(token);
         }
-        if (error.response && error.response.status === 401) {
-            console.log("Token expired. Please check your token.");
-            if (router) {
-                router.replace("/token/initToken");
-            }
-        }
-        else {
-            console.log(error);
+        if (error.response && error.response.status === 401 && router) {
+            router.replace("/token/initToken");
         }
     }
 }
@@ -131,18 +110,10 @@ const getNextMatch = async (slugs, router = null) => {
     } catch (error) {
         const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-            // alert("Refreshing token... ");
-            console.log("Refreshing token... by getNextMatch");
             refresh(token);
         }
-        if (error.response && error.response.status === 401) {
-            console.log("Token expired. Please check your token.");
-            if (router) {
-                router.replace("/token/initToken");
-            }
-        }
-        else {
-            console.log(error);
+        if (error.response && error.response.status === 401 && router) {
+            router.replace("/token/initToken");
         }
     }
 }

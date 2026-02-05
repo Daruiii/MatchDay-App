@@ -1,6 +1,5 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getObjectData } from '../storage/data';
 import { getSecureToken } from '../storage/secureStorage';
 import refresh from "./autoReloadToken";
 
@@ -42,7 +41,6 @@ const getNextMatch = async (slugs, router = null) => {
                         if (val === true) {
                             scheduleNotification(nextMatch, key);
                         }
-                        console.log(`${key}: is ${val}`);
                     }
                 }
             }
@@ -51,20 +49,15 @@ const getNextMatch = async (slugs, router = null) => {
         return nextMatch;
     } catch (error) {
         if (error.response && error.response.status === 429) {
-            console.log("Rate limit atteinte, refresh token nécessaire");
             const token = await getSecureToken();
             if (token) {
                 refresh(token);
             }
         }
         if (error.response && error.response.status === 401) {
-            console.log("Token expired. Please check your token.");
             if (router) {
                 router.replace("/token/initToken");
             }
-        }
-        else {
-            console.log(error);
         }
     }
 }
@@ -83,7 +76,6 @@ const scheduleNotification = async (nextMatch, key) => {
     // check device type
     const deviceType = Device.deviceType;
     if (deviceType !== Device.DeviceType.PHONE) {
-        console.log("Device not a phone");
         return;
     }
     const matchStartDate = new Date(nextMatch?.begin_at).getTime();
@@ -114,7 +106,6 @@ const scheduleNotification = async (nextMatch, key) => {
         // Vérifier si une notification pour ce match existe déjà
         const existingNotification = await AsyncStorage.getItem(notificationKey);
         if (existingNotification) {
-            console.log(`Notification already scheduled for match ${nextMatch?.id}`);
             return;
         }
 
@@ -148,10 +139,8 @@ const scheduleNotification = async (nextMatch, key) => {
                 trigger: { seconds: secondsUntilMatch, repeats: false },
             });
         }
-        const secondsUntilMatchToHours = secondsUntilMatch / 3600;
-        console.log(`Notification scheduled for match ${nextMatch?.id} in ${secondsUntilMatchToHours} hours`);
     } catch (error) {
-        console.error('Error scheduling notification:', error);
+        // Error scheduling notification
     }
 };
 
@@ -164,10 +153,8 @@ const cancelScheduledNotification = async (matchId, key) => {
 
         // Supprimer l'enregistrement associé dans le stockage local
         await AsyncStorage.removeItem(notificationKey);
-
-        console.log(`Notification canceled for match ${matchId}`);
     } catch (error) {
-        console.error('Error canceling scheduled notification:', error);
+        // Error canceling scheduled notification
     }
 };
 
@@ -180,28 +167,16 @@ const cancelAllScheduledNotifications = async () => {
         const keys = await AsyncStorage.getAllKeys();
         const matchNotificationKeys = keys.filter((key) => key.startsWith('match_notification_'));
         await AsyncStorage.multiRemove(matchNotificationKeys);
-
-        console.log('All scheduled notifications canceled');
     } catch (error) {
-        console.error('Error canceling all scheduled notifications:', error);
+        // Error canceling all scheduled notifications
     }
 };
 
 
 const getNotificationActive = async () => {
     const notificationActive = await Notifications.getPermissionsAsync();
-    console.log("Notification active:");
-    console.log(notificationActive);
-    // get notification active in local storage
     const keys = await AsyncStorage.getAllKeys();
     const matchNotificationKeys = keys.filter((key) => key.startsWith('match_notification_'));
-    console.log("Local storage Notification keys:");
-    console.log(matchNotificationKeys);
-    matchNotificationKeys.map(async (key) => {
-        const notification = await AsyncStorage.getItem(key);
-        // console.log(JSON.parse(notification).title);
-        alert(JSON.parse(notification).title);
-    });
     return matchNotificationKeys;
 }
 

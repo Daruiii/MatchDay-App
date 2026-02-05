@@ -1,15 +1,10 @@
-import React from 'react'
 import { View, Text, Pressable, Image, Modal, ScrollView, ActivityIndicator } from 'react-native'
-import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { getModalTournamentData, getModalTournamentRankingData } from '../../../hooks/getModalData';
-import flagsData from '../../../storage/flagsData.json';
 import RosterModal from '../modal/RosterModal';
 import EventTabs from '../team/EventTabs';
 
 import styles from './tournamentModal.style'
-import { COLORS, images } from "../../../constants";
-import { icons } from '../../../constants';
 
 const TournamentThree = ({ teamData, colors, openRosterModal }) => {
 
@@ -99,8 +94,8 @@ const TournamentRankings = ({ tournamentId, colors, openRosterModal }) => {
             getModalTournamentRankingData(tournamentId).then((data) => {
                 setTournamentRankings(data)
                 setIsLoading(false)
-            }).catch((error) => {
-                console.log(error)
+            }).catch(() => {
+                setIsLoading(false)
             }
             )
         }
@@ -162,7 +157,6 @@ const TournamentRankings = ({ tournamentId, colors, openRosterModal }) => {
 }
 
 const TournamentModal = ({ tournamentId, tournamentModalVisible, setTournamentModalVisible, colors }) => {
-    const router = useRouter();
     const [teamData, setTeamData] = useState(null);
     const [rosterModalVisible, setRosterModalVisible] = useState(false);
     const [selectedTeamId, setSelectedTeamId] = useState(null);
@@ -179,7 +173,6 @@ const TournamentModal = ({ tournamentId, tournamentModalVisible, setTournamentMo
     }, [tournamentId])
 
     const openRosterModal = (teamId) => {
-        console.log(teamId)
         setSelectedTeamId(teamId);
         setRosterModalVisible(true);
     }

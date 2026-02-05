@@ -5,18 +5,14 @@ import { useState, useEffect } from 'react';
 import { COLORS, icons, SIZES } from '../../constants';
 import { Navbar, MyTeams, FixedBtn, GradientBackground, PageHeader } from '../../components';
 
-import { getObjectData, storeObjectData, updateObjectData } from '../../storage/data';
-import refresh from '../../hooks/autoReloadToken';
-import { getNotificationActive, scheduleNotification, cancelScheduledNotification, cancelAllScheduledNotifications } from '../../hooks/setNotifications';
+import { getObjectData, storeObjectData } from '../../storage/data';
 
 const Menu = () => {
     const router = useRouter();
     const [teams, setTeams] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [logos, setLogos] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
-    const [nextNotificationsDetails, setNextNotificationsDetails] = useState([]);
 
     const updateTeams = (newTeams) => {
         setTeams(newTeams);
@@ -39,13 +35,6 @@ const Menu = () => {
     }
 
     useEffect(() => {
-        // LogoApiData().then((retrievedLogos) => {
-        //     setLogos(retrievedLogos);
-        //     setIsLoading(false);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //   });
         getObjectData('token').then((value) => {
             if (value === null) {
                 storeObjectData('token', '');

@@ -106,7 +106,6 @@ const Home = () => {
   };
   const handlePressGo = (teamName) => {
     router.replace(`/team/${teamName}`);
-    console.log(teamName);
   };
 
   return (

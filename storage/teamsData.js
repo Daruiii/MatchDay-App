@@ -534,19 +534,10 @@ const defaultTeams = [
 const getTeams = async () => {
     try {
         const teams = await AsyncStorage.getItem('teams');
-        // console log name of each team
-        const teamsParsed = JSON.parse(teams) || [];
-        console.log("--------------------");
-        console.log("Teams : ");
-        teamsParsed.forEach((team) => {
-            console.log(team.teamName);
-        });
-        console.log("--------------------");
-        // console.log("teams :" + teams);
         return teams != null ? JSON.parse(teams) : null;
     }
     catch (error) {
-        console.log("Error getting teams : " + error);
+        return null;
     }
 }
 
@@ -560,10 +551,9 @@ const deleteTeam = async (teamName) => {
         if (teamIndex !== -1) {
             teamsParsed.splice(teamIndex, 1);
             await AsyncStorage.setItem('teams', JSON.stringify(teamsParsed));
-            getTeams();
         }
     } catch (error) {
-        console.log("Error deleting team : " + error);
+        // Error deleting team
     }
 }
 
@@ -596,9 +586,8 @@ const addTeam = async (teamName, backgroundColor, secondColor, eventColor, event
         });
 
         await AsyncStorage.setItem('teams', JSON.stringify(teamsParsed));
-        getTeams();
     } catch (error) {
-        console.log("Error adding team : " + error);
+        // Error adding team
     }
 }
 
@@ -623,10 +612,9 @@ const updateTeam = async (teamName, backgroundColor, secondColor, eventColor, ev
                 notificate: notificate
             };
             await AsyncStorage.setItem('teams', JSON.stringify(teamsParsed));
-            getTeams();
         }
     } catch (error) {
-        console.log("Error updating team : " + error);
+        // Error updating team
     }
 }
 

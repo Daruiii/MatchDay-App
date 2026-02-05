@@ -21,7 +21,7 @@ const refresh = async (token, router = null) => {
             router.replace('/');
         }
     } catch (error) {
-        console.log("dataError: ", error);
+        // Error refreshing token
     }
 };
 

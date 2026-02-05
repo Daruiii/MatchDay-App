@@ -23,19 +23,12 @@ const getModalData = async (teamId, router = null) => {
     } catch (error) {
         const token = await getObjectData("token");
         if (error.response && error.response.status === 429) {
-          // alert("Refreshing token... ");
-          console.log("Refreshing token... by getModalData");
           refresh(token);
       }
-      if (error.response && error.response.status === 401) {
-          console.log("Token expired. Please check your token.");
-          // router.replace("/token/initToken");
-          }
-          else {
-          console.log(error);
-          // router.replace("/token/initToken");
-          }
+      if (error.response && error.response.status === 401 && router) {
+          router.replace("/token/initToken");
       }
+    }
 };
 const getModalTournamentRankingData = async (tournamentId) => {
   try {
@@ -58,18 +51,8 @@ const getModalTournamentRankingData = async (tournamentId) => {
   } catch (error) {
       const token = await getObjectData("token");
       if (error.response && error.response.status === 429) {
-        // alert("Refreshing token... ");
-        console.log("Refreshing token... by getModalData");
         refresh(token);
-    }
-    if (error.response && error.response.status === 401) {
-        console.log("Token expired. Please check your token.");
-        // router.replace("/token/initToken");
-        }
-        else {
-        console.log(error);
-        // router.replace("/token/initToken");
-        }
+      }
     }
 }
 
@@ -94,18 +77,11 @@ try {
   } catch (error) {
       const token = await getObjectData("token");
       if (error.response && error.response.status === 429) {
-        // alert("Refreshing token... ");
-        console.log("Refreshing token... by getModalData");
         refresh(token);
-    }
-    if (error.response && error.response.status === 401) {
-        console.log("Token expired. Please check your token.");
-        // router.replace("/token/initToken");
-        }
-        else {
-        console.log(error);
-        // router.replace("/token/initToken");
-        }
+      }
+      if (error.response && error.response.status === 401 && router) {
+        router.replace("/token/initToken");
+      }
     }
 }
 

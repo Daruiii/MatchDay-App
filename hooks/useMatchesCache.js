@@ -36,7 +36,6 @@ export const useMatchesCache = (slugs, type = 'upcoming') => {
     // Vérifier le cache d'abord
     const cached = matchesCache.get(cacheKey);
     if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
-      console.log(`📦 Cache hit [${type}]:`, cacheKey.split('|')[1]);
       setMatches(cached.data);
       setIsLoading(false);
       return;
@@ -57,13 +56,10 @@ export const useMatchesCache = (slugs, type = 'upcoming') => {
           data,
           timestamp: Date.now()
         });
-        console.log(`💾 Cache [${type}] mis à jour:`, cacheKey.split('|')[1]);
-        
         setMatches(data);
       }
     } catch (err) {
       if (!mountedRef.current) return;
-      console.error('Erreur fetch matches:', err);
       setError(err);
     } finally {
       if (mountedRef.current) {
@@ -88,7 +84,6 @@ export const useMatchesCache = (slugs, type = 'upcoming') => {
       for (const [key, value] of matchesCache.entries()) {
         if (now - value.timestamp > CACHE_TTL) {
           matchesCache.delete(key);
-          console.log('🗑️ Cache expiré supprimé:', key);
         }
       }
     }, CACHE_TTL);
@@ -109,5 +104,4 @@ export const useMatchesCache = (slugs, type = 'upcoming') => {
  */
 export const clearMatchesCache = () => {
   matchesCache.clear();
-  console.log('🧹 Cache matches vidé');
 };
