@@ -96,7 +96,7 @@ const Next = React.memo(({ teamData }) => {
                     <View style={styles.eventDate}>
                         {matchData?.status === 'running' ? (
                             <Pressable onPress={() => router.push(matchData?.streams_list[0]?.raw_url)} style={styles.eventNow}>
-                                <Text style={styles.eventText("white")}>Now !!</Text>
+                                <Text style={styles.eventText("white")}>Live !!</Text>
                             </Pressable>
                         ) : (
                             beginAtDate.getDate() === tomorrow.getDate() & beginAtDate.getMonth() === tomorrow.getMonth() & beginAtDate.getFullYear() === tomorrow.getFullYear()

@@ -54,7 +54,7 @@ const UpcomingRow = React.memo(({ teamData }) => {
             style={styles.scrollContainer}
         >
             {matchesData?.length > 0 ? (
-                matchesData.map((match) => {
+                matchesData.map((match, index) => {
                     const beginAtDate = new Date(match?.begin_at);
                     beginAtDate.setHours(beginAtDate.getHours() + 0);
                     const formattedTime = `${String(beginAtDate.getHours()).padStart(2, '0')}:${String(beginAtDate.getMinutes()).padStart(2, '0')}`;
@@ -65,7 +65,7 @@ const UpcomingRow = React.memo(({ teamData }) => {
                     const imgName = gamesLogo[match?.videogame?.slug]?.image;
 
                     return (
-                        <View key={match?.id} style={styles.eventContainer(teamData?.eventColor, teamData?.secondColor)}>
+                        <View key={`${match?.id}-${index}`} style={styles.eventContainer(teamData?.eventColor, teamData?.secondColor)}>
                             <Pressable
                                 style={styles.eventCompetition(teamData?.secondColor)}
                                 onPress={() => openTournamentModal(match?.tournament_id)}>
@@ -123,7 +123,7 @@ const UpcomingRow = React.memo(({ teamData }) => {
                                         <Pressable onPress={() => router.push(`${match?.streams_list[0]?.raw_url}`)}
                                             style={styles.eventNow}
                                         >
-                                            <Text style={styles.eventText("white")}>Now !!</Text>
+                                            <Text style={styles.eventText("white")}>Live !!</Text>
                                         </Pressable>
                                     ) : (
                                         beginAtDate.getDate() === tomorrow.getDate() && beginAtDate.getMonth() === tomorrow.getMonth() && beginAtDate.getFullYear() === tomorrow.getFullYear()

@@ -69,11 +69,11 @@ const Upcoming = React.memo(({ teamData }) => {
     return (
         <View style={styles.container}>
             {processedMatches?.length > 0 ? (
-                processedMatches.map((match) => {
+                processedMatches.map((match, index) => {
                     const { beginAtDate, formattedTime, now, tomorrow, imgName } = match;
 
                     return (
-                        <View key={match?.id} style={styles.eventContainer(teamData?.eventColor)}>
+                        <View key={`${match?.id}-${index}`} style={styles.eventContainer(teamData?.eventColor)}>
                             {match?.videogame?.slug && gamesLogo[match?.videogame?.slug] && images[imgName] ? (
                                 <View style={styles.eventGameLogoContainer(teamData?.secondColor)}>
                                 <Image source={images[imgName]} style={{ width: 20, height: 20 }} resizeMode='contain' />
@@ -129,7 +129,7 @@ const Upcoming = React.memo(({ teamData }) => {
                                     <Pressable onPress={() => router.push(`${match?.streams_list[0]?.raw_url}`)}
                                         style={styles.eventNow}
                                     >
-                                        <Text style={styles.eventText("white")}>Now !</Text>
+                                        <Text style={styles.eventNowText}>Live</Text>
                                     </Pressable>
                                 ) : (
                                     beginAtDate.getDate() === tomorrow.getDate() & beginAtDate.getMonth() === tomorrow.getMonth() & beginAtDate.getFullYear() === tomorrow.getFullYear()

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getObjectData } from '../storage/data';
+import { getSecureToken } from '../storage/secureStorage';
 import refresh from "./autoReloadToken";
 
 const getPastMatches = async (slugs, router = null) => {
@@ -7,7 +7,7 @@ const getPastMatches = async (slugs, router = null) => {
         return;
     }
     try {
-        const token = await getObjectData('token');
+        const token = await getSecureToken();
         // 2. Fetch data for each slug
         const matchPromises = slugs.map(async (slug) => {
             const options = {
@@ -44,7 +44,7 @@ const getUpcomingMatches = async (slugs, router = null) => {
         return;
     }
     try {
-        const token = await getObjectData('token');
+        const token = await getSecureToken();
         const matchPromises = slugs.map(async (slug) => {
             const options = {
                 method: 'GET',
@@ -68,7 +68,7 @@ const getUpcomingMatches = async (slugs, router = null) => {
         const sortedMatches = matches.flat().sort((a, b) => new Date(a.begin_at) - new Date(b.begin_at));
         return sortedMatches;
     } catch (error) {
-        const token = await getObjectData("token");
+        const token = await getSecureToken();
         if (error.response && error.response.status === 429) {
             refresh(token);
         }
@@ -83,7 +83,7 @@ const getNextMatch = async (slugs, router = null) => {
         return;
     }
     try {
-        const token = await getObjectData('token');
+        const token = await getSecureToken();
         const matchPromises = slugs.map(async (slug) => {
             const options = {
                 method: 'GET',
@@ -108,7 +108,7 @@ const getNextMatch = async (slugs, router = null) => {
 
         return nextMatch;
     } catch (error) {
-        const token = await getObjectData("token");
+        const token = await getSecureToken();
         if (error.response && error.response.status === 429) {
             refresh(token);
         }

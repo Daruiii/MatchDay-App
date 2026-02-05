@@ -42,11 +42,11 @@ const Past = React.memo(({ teamData }) => {
     return (
         <View style={styles.container}>
             {matchesData?.length > 0 ? (
-                matchesData.map((match) => {
+                matchesData.map((match, index) => {
                     const imgName = gamesLogo[match?.videogame?.slug]?.image;
 
                     return (
-                        <View key={match?.id} style={styles.eventContainer(teamData?.eventColor)}>
+                        <View key={`${match?.id}-${index}`} style={styles.eventContainer(teamData?.eventColor)}>
                             {match?.videogame?.slug && gamesLogo[match?.videogame?.slug] && images[imgName] ? (
                                  <View style={styles.eventGameLogoContainer(teamData?.secondColor)}>
                                     <Image source={images[imgName]} style={{ width: 20, height: 20 }} resizeMode='contain' />

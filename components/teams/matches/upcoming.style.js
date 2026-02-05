@@ -72,6 +72,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#6441a5",
   },
+  eventNowText: {
+    color: "white",
+    fontSize: SIZES.small,
+    fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "RogueHero2",
+  },
   eventCompetition: {
     width: "32%",
     textAlign: "center",

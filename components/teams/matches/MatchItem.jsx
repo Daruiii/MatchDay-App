@@ -146,7 +146,7 @@ const MatchItem = React.memo(({
         <View style={styles.eventDate}>
           {match?.status === 'running' ? (
             <Pressable onPress={handleStreamPress} style={styles.eventNow}>
-              <Text style={styles.eventText("white")}>Now !!</Text>
+              <Text style={styles.eventText("white")}>Live !!</Text>
             </Pressable>
           ) : (
             <Text style={styles.eventText(teamData?.eventTextColor)}>
