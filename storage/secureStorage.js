@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { VALIDATION } from '../config';
 
 /**
  * Stockage sécurisé pour les données sensibles (token PS notamment)
@@ -13,9 +14,8 @@ const SECURE_KEYS = {
 
 const isValidToken = (token) => {
   if (!token || typeof token !== 'string') return false;
-  // PandaScore tokens sont généralement des strings de 40+ caractères
-  if (token.length < 20) return false;
-  return /^[a-zA-Z0-9_-]+$/.test(token);
+  if (token.length < VALIDATION.TOKEN_MIN_LENGTH) return false;
+  return VALIDATION.TOKEN_REGEX.test(token);
 };
 
 export const storeSecureToken = async (token) => {

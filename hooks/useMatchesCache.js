@@ -1,12 +1,13 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { getUpcomingMatches, getPastMatches, getNextMatch } from './getMatches';
+import { CACHE_CONFIG } from '../config';
 
 /**
  * Cache universel des matches avec TTL
  * Évite les API calls répétés pour les mêmes données
  */
 const matchesCache = new Map();
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = CACHE_CONFIG.MATCHES_TTL;
 
 /**
  * Hook optimisé pour récupérer les matches avec cache

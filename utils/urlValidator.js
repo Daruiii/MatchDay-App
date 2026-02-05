@@ -1,4 +1,5 @@
 import * as Linking from 'expo-linking';
+import { ALLOWED_URLS } from '../config';
 
 /**
  * URLs autorisées pour l'application
@@ -6,7 +7,11 @@ import * as Linking from 'expo-linking';
 const ALLOWED_DOMAINS = [
   'app.pandascore.co',
   'pandascore.co',
-  'www.pandascore.co'
+  'www.pandascore.co',
+  'youtube.com',
+  'www.youtube.com',
+  'twitch.tv',
+  'www.twitch.tv'
 ];
 
 export const isValidUrl = (url) => {
