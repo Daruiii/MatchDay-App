@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, ActivityIndicator, Modal, TouchableOpacity, Pressable, TextInput, Image } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import { useState, useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 
 import { COLORS, icons, SIZES, images } from '../../constants';
 import { HeaderBtn, Navbar, MyTeams, FixedBtn } from '../../components';
@@ -30,7 +31,11 @@ const InitToken = () => {
         if (success) {
             router.push('/');
         } else {
-            alert('Erreur: Format de token invalide');
+            Toast.show({
+                type: 'error',
+                text1: 'Invalid Token',
+                text2: 'Please check your token format',
+            });
         }
     }
 
@@ -115,7 +120,11 @@ const InitToken = () => {
                                                 try {
                                                     await navigateSecurely('https://app.pandascore.co/login');
                                                 } catch (error) {
-                                                    alert('Impossible d\'ouvrir le lien de connexion');
+                                                    Toast.show({
+                                                        type: 'error',
+                                                        text1: 'Cannot Open Link',
+                                                        text2: 'Please open the link manually in your browser',
+                                                    });
                                                 }
                                             }}
                                         >

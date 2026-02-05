@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import Toast from 'react-native-toast-message';
 import { AppProvider } from '../contexts/AppContext';
 import { preloadCriticalComponents } from '../components/lazy/LazyComponents';
 
@@ -34,6 +35,11 @@ const Layout = () => {
                 screenOptions={{
                     headerShown: true,
                 }}
+            />
+            <Toast 
+                position='bottom'
+                bottomOffset={100}
+                visibilityTime={3500}
             />
         </AppProvider>
     );

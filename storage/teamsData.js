@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 import { getAllSlugs, getTeamLogo } from '../hooks/getAllSlugs';
 
 const defaultTeams = [
@@ -562,7 +563,11 @@ const addTeam = async (teamName, backgroundColor, secondColor, eventColor, event
         const teams = await AsyncStorage.getItem('teams');
         const teamsParsed = JSON.parse(teams) || [];
         if (teamsParsed.find((team) => team.teamName === teamName)) {
-            alert("Team already exists");
+            Toast.show({
+                type: 'error',
+                text1: 'Team Already Exists',
+                text2: 'This team is already in your list',
+            });
             return;
         }
 

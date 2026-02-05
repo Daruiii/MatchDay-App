@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
 import { getSecureToken } from '../storage/secureStorage';
 import refresh from "./autoReloadToken";
 
@@ -115,7 +116,11 @@ const scheduleNotification = async (nextMatch, key) => {
             // check if notification is enabled with expo-notifications
             const { status } = await Notifications.requestPermissionsAsync();
             if (status !== 'granted') {
-                alert('You need to enable permissions in order to receive notifications');
+                Toast.show({
+                    type: 'error',
+                    text1: 'Permission Required',
+                    text2: 'Enable notifications in settings to receive match alerts',
+                });
                 return;
             }
             await Notifications.scheduleNotificationAsync({

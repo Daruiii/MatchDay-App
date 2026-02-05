@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { addTeam, updateTeam } from '../../../storage/teamsData';
 import { useRouter } from 'expo-router';
 import { COLORS, SIZES } from '../../../constants';
@@ -45,7 +46,11 @@ const TeamForm = ({ updateTeams, teams, team }) => {
      } = teamData;
 
     if (!teamName) {
-      alert('Please enter a team name');
+      Toast.show({
+        type: 'error',
+        text1: 'Missing Information',
+        text2: 'Please enter a team name',
+      });
       return;
     }
 
