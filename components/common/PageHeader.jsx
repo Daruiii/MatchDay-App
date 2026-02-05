@@ -8,6 +8,7 @@ const PageHeader = ({ title, rightIcon, onRightPress }) => {
     return (
         <Stack.Screen
             options={{
+                title: "",
                 headerStyle: {
                     backgroundColor: COLORS.headerBg,
                 },

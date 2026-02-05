@@ -37,6 +37,16 @@ const Settings = () => {
                             <Pressable style={{
                                 justifyContent: 'space-between', backgroundColor: COLORS.gray2,
                                 padding: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center',
+                                marginBottom: 10, width: "100%"
+                            }} onPress={() => {
+                                router.push('/menu/menu');
+                            }}>
+                                <Text style={{ color: COLORS.gray, fontSize: SIZES.medium, fontFamily: 'RogueHero2', }}>My Teams</Text>
+                                <Image source={icons.chevronRight} resizeMode="contain" style={{ width: 20, height: 20, tintColor: COLORS.gray }} />
+                            </Pressable>
+                            <Pressable style={{
+                                justifyContent: 'space-between', backgroundColor: COLORS.gray2,
+                                padding: 10, borderRadius: 10, flexDirection: 'row', alignItems: 'center',
                                 marginBottom: 15, width: "100%"
                             }} onPress={() => {
                                 router.replace('/token/initToken');
