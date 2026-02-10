@@ -16,7 +16,7 @@ const ActionTypes = {
   SET_SETTINGS: 'SET_SETTINGS',
   UPDATE_SETTINGS: 'UPDATE_SETTINGS',
   SET_LOADING: 'SET_LOADING',
-  SET_ERROR: 'SET_ERROR'
+  SET_ERROR: 'SET_ERROR',
 } as const;
 
 // Types pour les notifications
@@ -62,43 +62,43 @@ export interface AppContextType extends AppState, AppActions {}
 const initialState: AppState = {
   teams: [],
   settings: {
-    notifSwitch: { '0': true }
+    notifSwitch: { '0': true },
   },
   isLoading: false,
-  error: null
+  error: null,
 };
 
 const appReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
     case ActionTypes.SET_TEAMS:
       return { ...state, teams: action.payload };
-      
+
     case ActionTypes.ADD_TEAM:
       return { ...state, teams: [...state.teams, action.payload] };
-      
+
     case ActionTypes.UPDATE_TEAM:
       return {
         ...state,
-        teams: state.teams.map(team =>
+        teams: state.teams.map((team) =>
           team.teamName === action.payload.teamName ? action.payload : team
-        )
+        ),
       };
-      
+
     case ActionTypes.DELETE_TEAM:
       return {
         ...state,
-        teams: state.teams.filter(team => team.teamName !== action.payload)
+        teams: state.teams.filter((team) => team.teamName !== action.payload),
       };
-      
+
     case ActionTypes.SET_SETTINGS:
       return { ...state, settings: { ...state.settings, ...action.payload } };
-      
+
     case ActionTypes.SET_LOADING:
       return { ...state, isLoading: action.payload };
-      
+
     case ActionTypes.SET_ERROR:
       return { ...state, error: action.payload };
-      
+
     default:
       return state;
   }
@@ -119,11 +119,11 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
   const loadInitialData = async (): Promise<void> => {
     dispatch({ type: ActionTypes.SET_LOADING, payload: true });
-    
+
     try {
       const [teams, notifSwitch] = await Promise.all([
         getObjectData<StoredTeam[]>('teams'),
-        getObjectData<NotificationSwitch>('notifSwitch')
+        getObjectData<NotificationSwitch>('notifSwitch'),
       ]);
 
       if (teams) {
@@ -131,16 +131,16 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
       }
 
       if (notifSwitch) {
-        dispatch({ 
-          type: ActionTypes.SET_SETTINGS, 
-          payload: { notifSwitch } 
+        dispatch({
+          type: ActionTypes.SET_SETTINGS,
+          payload: { notifSwitch },
         });
       } else {
         const defaultNotif: NotificationSwitch = { '0': true };
         await storeObjectData('notifSwitch', defaultNotif);
-        dispatch({ 
-          type: ActionTypes.SET_SETTINGS, 
-          payload: { notifSwitch: defaultNotif } 
+        dispatch({
+          type: ActionTypes.SET_SETTINGS,
+          payload: { notifSwitch: defaultNotif },
         });
       }
     } catch (error) {
@@ -159,7 +159,7 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
     updateTeam: async (updatedTeam: StoredTeam) => {
       dispatch({ type: ActionTypes.UPDATE_TEAM, payload: updatedTeam });
-      const newTeams = state.teams.map(team =>
+      const newTeams = state.teams.map((team) =>
         team.teamName === updatedTeam.teamName ? updatedTeam : team
       );
       await storeObjectData('teams', newTeams);
@@ -167,40 +167,36 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
 
     deleteTeam: async (teamName: string) => {
       dispatch({ type: ActionTypes.DELETE_TEAM, payload: teamName });
-      const newTeams = state.teams.filter(team => team.teamName !== teamName);
+      const newTeams = state.teams.filter((team) => team.teamName !== teamName);
       await storeObjectData('teams', newTeams);
     },
 
     updateSettings: async (newSettings: Partial<Settings>) => {
       dispatch({ type: ActionTypes.SET_SETTINGS, payload: newSettings });
-      
+
       for (const [key, value] of Object.entries(newSettings)) {
         await storeObjectData(key, value);
       }
     },
 
-    refetch: loadInitialData
+    refetch: loadInitialData,
   };
 
   const value: AppContextType = {
     ...state,
-    ...actions
+    ...actions,
   };
 
-  return (
-    <AppContext.Provider value={value}>
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
 export const useApp = (): AppContextType => {
   const context = useContext(AppContext);
-  
+
   if (!context) {
     throw new Error('useApp must be used within AppProvider');
   }
-  
+
   return context;
 };
 

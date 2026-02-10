@@ -15,11 +15,15 @@ const TeamHeader: React.FC<TeamHeaderProps> = ({ secondColor, logo, data }) => {
     <>
       {logo ? (
         <View style={(styles.container as any)(secondColor)}>
-          <Image source={{ uri: logo }} style={{ width: 50, height: 50 }} resizeMode='contain' />
+          <Image source={{ uri: logo }} style={{ width: 50, height: 50 }} resizeMode="contain" />
         </View>
       ) : (
         <View style={(styles.container as any)(secondColor)}>
-          <Image source={images.unknownTeam} style={{ width: 50, height: 50 }} resizeMode='contain' />
+          <Image
+            source={images.unknownTeam}
+            style={{ width: 50, height: 50 }}
+            resizeMode="contain"
+          />
         </View>
       )}
 

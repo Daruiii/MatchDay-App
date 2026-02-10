@@ -36,17 +36,18 @@ export const useMatchesCache = (
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
   const mountedRef = useRef<boolean>(true);
-  
+
   // Créer une clé de cache stable avec le type
   const cacheKey = `${type}|${slugs?.sort()?.join(',')}` || '';
-  
+
   // Sélectionner la fonction API selon le type
-  const getMatchesFunction = {
-    upcoming: getUpcomingMatches,
-    past: getPastMatches,
-    next: getNextMatch
-  }[type] || getUpcomingMatches;
-  
+  const getMatchesFunction =
+    {
+      upcoming: getUpcomingMatches,
+      past: getPastMatches,
+      next: getNextMatch,
+    }[type] || getUpcomingMatches;
+
   const fetchMatches = useCallback(async (): Promise<void> => {
     if (!slugs?.length || !cacheKey) {
       setIsLoading(false);
@@ -55,7 +56,7 @@ export const useMatchesCache = (
 
     // Vérifier le cache d'abord
     const cached = matchesCache.get(cacheKey);
-    if (cached && (Date.now() - cached.timestamp < CACHE_TTL)) {
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
       setMatches(cached.data);
       setIsLoading(false);
       return;
@@ -64,20 +65,20 @@ export const useMatchesCache = (
     try {
       setIsLoading(true);
       setError(null);
-      
+
       const data = await getMatchesFunction(slugs);
-      
+
       // Vérifier si le composant est toujours monté
       if (!mountedRef.current) return;
-      
+
       if (data) {
         // Convertir en tableau si c'est un seul match (pour getNextMatch)
         const dataArray = Array.isArray(data) ? data : [data];
-        
+
         // Stocker en cache
         matchesCache.set(cacheKey, {
           data: dataArray,
-          timestamp: Date.now()
+          timestamp: Date.now(),
         });
         setMatches(dataArray);
       }
@@ -94,7 +95,7 @@ export const useMatchesCache = (
   useEffect(() => {
     mountedRef.current = true;
     fetchMatches();
-    
+
     return () => {
       mountedRef.current = false;
     };
@@ -118,7 +119,7 @@ export const useMatchesCache = (
     matches,
     isLoading,
     error,
-    refetch: fetchMatches
+    refetch: fetchMatches,
   };
 };
 

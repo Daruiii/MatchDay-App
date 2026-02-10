@@ -1,61 +1,22 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    backgroundColor: COLORS.blackTR
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.blackTR,
   },
-  modalContainer: (bgColor?: string, borderColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "column" as const,
-    width: "75%",
-    padding: 20,
-    borderRadius: 10,
-    margin: 60,
-    borderWidth: 1,
-    borderColor: borderColor ? borderColor : COLORS.gray,
-  }),
-  modalHeader: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 10,
-  }),
-  modalTitle: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
-    fontSize: SIZES.medium,
-    fontWeight: "bold" as const,
-  }),
-  modalText: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
-    fontSize: SIZES.small,
-    fontWeight: "bold" as const,
-  }),
   modalBody: {
-    flexDirection: "column" as const,
-    justifyContent: "flex-start" as const,
-    alignItems: "center" as const,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     marginTop: 30,
     marginBottom: 50,
-    height: "100%",
-    width: "100%",
+    height: '100%',
+    width: '100%',
   },
-  playerContainer: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "column" as const,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    width: "100%",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 30,
-  }),
   playerImg: {
     width: 100,
     height: 100,
@@ -63,16 +24,58 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   playerInfo: {
-    flexDirection: "row" as const,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
   },
-  line: (color?: string) => ({
-    backgroundColor: color ? color : COLORS.gray,
-    width: "100%",
-    height: 1,
-  })
 });
 
-export default styles;
+const dynamicStyles = {
+  modalContainer: (bgColor?: string, borderColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'column',
+    width: '75%',
+    padding: 20,
+    borderRadius: 10,
+    margin: 60,
+    borderWidth: 1,
+    borderColor: borderColor || COLORS.gray,
+  }),
+  modalHeader: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 10,
+  }),
+  modalTitle: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
+    fontSize: SIZES.medium,
+    fontWeight: 'bold',
+  }),
+  modalText: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
+    fontSize: SIZES.small,
+    fontWeight: 'bold',
+  }),
+  playerContainer: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 30,
+  }),
+  line: (color?: string): ViewStyle => ({
+    backgroundColor: color || COLORS.gray,
+    width: '100%',
+    height: 1,
+  }),
+};
+
+export default { ...staticStyles, ...dynamicStyles };

@@ -186,10 +186,10 @@ export const scheduleNotification = async (nextMatch: Match, key: string): Promi
 
     await Notifications.scheduleNotificationAsync({
       content: notificationContent,
-      trigger: { 
+      trigger: {
         type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-        seconds: secondsUntilMatch, 
-        repeats: false 
+        seconds: secondsUntilMatch,
+        repeats: false,
       },
     });
   } catch (error) {
@@ -200,10 +200,7 @@ export const scheduleNotification = async (nextMatch: Match, key: string): Promi
 /**
  * Annuler une notification planifiée
  */
-export const cancelScheduledNotification = async (
-  matchId: number,
-  key: string
-): Promise<void> => {
+export const cancelScheduledNotification = async (matchId: number, key: string): Promise<void> => {
   try {
     const notificationKey = `match_notification_${matchId}_${key}`;
 

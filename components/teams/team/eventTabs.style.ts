@@ -1,33 +1,33 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
-  container: (backgroundColor: string, textColor: string) => ({
+const styles = {
+  container: (backgroundColor: string, textColor: string): ViewStyle => ({
     height: 50,
     backgroundColor: backgroundColor,
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   }),
-  headText: (textColor: string) => ({
+  headText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.large,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }),
-  btn: (name: string, activeTab: string, underLineColor: string) => ({
-    width: "50%",
-    height: "100%",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
+  btn: (name: string, activeTab: string, underLineColor: string): ViewStyle => ({
+    width: '50%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderBottomColor: name === activeTab ? underLineColor : COLORS.btnBg,
     borderBottomWidth: name === activeTab ? 2 : 1,
   }),
-  btnText: (name: string, activeTab: string, textColor: string) => ({
+  btnText: (name: string, activeTab: string, textColor: string): TextStyle => ({
     fontSize: SIZES.medium,
     color: textColor,
     fontFamily: name === activeTab ? 'RogueHero2' : 'RogueHero',
   }),
-});
+};
 
 export default styles;

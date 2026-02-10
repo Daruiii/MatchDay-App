@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { getObjectData } from '../storage/data';
+import { getSecureToken } from '../storage/secureStorage';
 import refresh from './autoReloadToken';
 import type { Team } from '../types';
 
@@ -27,7 +27,11 @@ const getNameAndVideoGame = async (
   router: Router | null = null
 ): Promise<TeamNameAndVideoGame | null> => {
   try {
-    const token = await getObjectData('token');
+    const token = await getSecureToken();
+
+    if (!token) {
+      return null;
+    }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
@@ -51,9 +55,30 @@ const getNameAndVideoGame = async (
         const status = axiosError.response.status;
 
         if (status === 429) {
-          const token = await getObjectData('token');
+          const token = await getSecureToken();
           if (token) {
-            refresh(token as string);
+            const newToken = await refresh(token);
+            // Retry avec le nouveau token
+            if (newToken) {
+              try {
+                const retryOptions: AxiosRequestConfig = {
+                  method: 'GET',
+                  url: `https://api.pandascore.co/teams/${slug}`,
+                  headers: {
+                    accept: 'application/json',
+                    authorization: `Bearer ${newToken}`,
+                  },
+                };
+                const retryResponse = await axios.request<Team>(retryOptions);
+                return {
+                  teamName: retryResponse.data?.name || 'Unknown',
+                  videoGame: retryResponse.data?.current_videogame?.name ?? 'Unknown',
+                  videoGameSlug: retryResponse.data?.current_videogame?.slug ?? 'Unknown',
+                };
+              } catch (retryError) {
+                return null;
+              }
+            }
           }
         }
 

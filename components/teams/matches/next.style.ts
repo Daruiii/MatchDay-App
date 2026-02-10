@@ -1,34 +1,63 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   container: {
-    flexDirection: "column" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  eventContainer: (bgColor: string) => ({
-    width: "100%",
+  eventError: {
+    width: '100%',
+    justifyContent: 'center',
+  },
+  eventNow: {
+    padding: 5,
+    borderRadius: 5,
+    justifyContent: 'center',
+    backgroundColor: '#6441a5',
+  },
+  eventCompetition: {
+    width: '25%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eventMatch: {
+    width: '26%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  eventDate: {
+    width: '25%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eventTime: {
+    width: '14%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const dynamicStyles = {
+  eventContainer: (bgColor: string): ViewStyle => ({
+    width: '100%',
     height: 70,
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "start" as const,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: bgColor,
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 15,
     marginVertical: 10,
   }),
-  eventError: {
-    width: "100%",
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventText: (textColor: string) => ({
+  eventText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.medium,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
     shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
@@ -36,56 +65,25 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
   }),
-  eventNow: {
-    padding: 5,
-    borderRadius: 5,
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-    backgroundColor: "#6441a5",
-  },
-  eventCompetition: {
-    width: "25%",
-    alignItems: "center" as const,
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventMatch: {
-    width: "26%",
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const,
-  },
-  eventDate: {
-    width: "25%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventTime: {
-    width: "14%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-  },
-  headText: (textColor: string) => ({
+  headText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.large,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }),
-  btn: (name: string, activeTab: string, underLineColor: string) => ({
-    width: "50%",
-    height: "100%",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    borderBottomColor: name === activeTab ? underLineColor : "transparent",
+  btn: (name: string, activeTab: string, underLineColor: string): ViewStyle => ({
+    width: '50%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: name === activeTab ? underLineColor : 'transparent',
     borderBottomWidth: 1,
   }),
-  btnText: (name: string, activeTab: string, textColor: string) => ({
+  btnText: (name: string, activeTab: string, textColor: string): TextStyle => ({
     fontSize: SIZES.medium,
-    fontWeight: "bold" as const,
+    fontWeight: 'bold',
     color: name === activeTab ? textColor : COLORS.gray2,
   }),
-});
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

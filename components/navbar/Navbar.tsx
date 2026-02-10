@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, FlatList } from "react-native";
-import { useRouter } from "expo-router";
-import styles from "./navbar.style";
-import NavbarBtn from "../navbar/button/NavbarBtn";
-import { COLORS, icons, SIZES, images } from "../../constants";
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { useRouter } from 'expo-router';
+import styles from './navbar.style';
+import NavbarBtn from '../navbar/button/NavbarBtn';
+import { COLORS, icons, SIZES, images } from '../../constants';
 import { getObjectData } from '../../storage/data';
 import type { StoredTeam } from '../../types';
 
@@ -18,7 +18,7 @@ const Navbar: React.FC<NavbarProps> = (teams) => {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const data = await getObjectData<StoredTeam[]>("teams");
+        const data = await getObjectData<StoredTeam[]>('teams');
         setTeamsData(data || []);
       } catch (error) {
         // Error fetching teams
@@ -28,11 +28,11 @@ const Navbar: React.FC<NavbarProps> = (teams) => {
   }, [teams]);
 
   const handlePressLeftButton = () => {
-    router.push("/");
+    router.push('/');
   };
 
   const handlePressNavbarBtn = (teamName: string) => {
-    router.replace(`/team/${teamName}`);
+    router.push(`/team/${teamName}`);
   };
 
   return (
@@ -48,8 +48,17 @@ const Navbar: React.FC<NavbarProps> = (teams) => {
         keyExtractor={(item, index) => index.toString()}
         style={styles.scrollContainer}
         ListEmptyComponent={() => (
-          <Text style={{ color: COLORS.gray, fontSize: SIZES.large, fontFamily: "RogueHero2", textAlign: 'center', marginTop: 10, marginLeft: 10 }}>
-            0 TEAM ADDED
+          <Text
+            style={{
+              color: COLORS.gray,
+              fontSize: SIZES.large,
+              fontFamily: 'RogueHero2',
+              textAlign: 'center',
+              marginTop: 10,
+              marginLeft: 10,
+            }}
+          >
+            NO TEAM ADDED
           </Text>
         )}
         renderItem={({ item }) => (

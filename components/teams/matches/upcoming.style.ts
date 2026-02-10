@@ -1,9 +1,56 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
-  eventGameLogoContainer: (secondColor: string) => ({
-    position: "absolute" as const,
+const staticStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 125,
+  },
+  eventError: {
+    width: '100%',
+    justifyContent: 'center',
+  },
+  eventNow: {
+    padding: 5,
+    borderRadius: 5,
+    justifyContent: 'center',
+    backgroundColor: '#6441a5',
+  },
+  eventNowText: {
+    color: 'white',
+    fontSize: SIZES.small,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'RogueHero2',
+  },
+  eventCompetition: {
+    width: '32%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eventMatch: {
+    width: '28%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  eventDate: {
+    width: '23%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eventTime: {
+    width: '13%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const dynamicStyles = {
+  eventGameLogoContainer: (secondColor: string): ViewStyle => ({
+    position: 'absolute',
     zIndex: 10,
     left: 6,
     top: 4,
@@ -17,35 +64,24 @@ const styles = StyleSheet.create({
     backgroundColor: secondColor,
     borderRadius: 15,
   }),
-  container: {
-    flexDirection: "column" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-    marginBottom: 125,
-  },
-  eventContainer: (bgColor: string) => ({
-    width: "95%",
+  eventContainer: (bgColor: string): ViewStyle => ({
+    width: '95%',
     height: 70,
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "start" as const,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: bgColor,
     borderRadius: 10,
     padding: 10,
     marginHorizontal: 15,
     marginVertical: 10,
   }),
-  eventError: {
-    width: "100%",
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventText: (textColor: string) => ({
+  eventText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.sMedium,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
-    fontFamily: "RogueHero2",
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'RogueHero2',
     shadowColor: COLORS.black,
     shadowOffset: {
       width: 0,
@@ -53,63 +89,25 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
   }),
-  eventNow: {
-    padding: 5,
-    borderRadius: 5,
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-    backgroundColor: "#6441a5",
-  },
-  eventNowText: {
-    color: "white",
-    fontSize: SIZES.small,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
-    fontFamily: "RogueHero2",
-  },
-  eventCompetition: {
-    width: "32%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventMatch: {
-    width: "28%",
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const,
-  },
-  eventDate: {
-    width: "23%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-  },
-  eventTime: {
-    width: "13%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-  },
-  headText: (textColor: string) => ({
+  headText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.large,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }),
-  btn: (name: string, activeTab: string, underLineColor: string) => ({
-    width: "50%",
-    height: "100%",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    borderBottomColor: name === activeTab ? underLineColor : "transparent",
+  btn: (name: string, activeTab: string, underLineColor: string): ViewStyle => ({
+    width: '50%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: name === activeTab ? underLineColor : 'transparent',
     borderBottomWidth: 1,
   }),
-  btnText: (name: string, activeTab: string, textColor: string) => ({
+  btnText: (name: string, activeTab: string, textColor: string): TextStyle => ({
     fontSize: SIZES.medium,
-    fontWeight: "bold" as const,
+    fontWeight: 'bold',
     color: name === activeTab ? textColor : COLORS.gray2,
   }),
-});
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

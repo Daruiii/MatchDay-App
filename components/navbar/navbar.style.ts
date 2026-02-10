@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.gray2,
   },
   leftButton: {
-    width: "30%",
+    width: '30%',
     height: '100%',
     flexDirection: 'row' as const,
     justifyContent: 'center' as const,

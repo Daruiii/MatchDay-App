@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, Modal, TouchableOpacity, Pressable, TextInput, Image } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  ActivityIndicator,
+  Modal,
+  TouchableOpacity,
+  Pressable,
+  TextInput,
+  Image,
+} from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 
@@ -67,15 +77,19 @@ const InitToken: React.FC = () => {
             <HeaderBtn iconUrl={icons.hein} dimension="60%" handlePress={handlePressHein} />
           ),
           headerTitle: () => (
-            <Pressable onPress={() => { router.replace('/'); }}>
-              <Image 
-                source={images.icon} 
-                resizeMode="contain" 
+            <Pressable
+              onPress={() => {
+                router.replace('/');
+              }}
+            >
+              <Image
+                source={images.icon}
+                resizeMode="contain"
                 style={{
-                  width: 50, 
-                  height: 40, 
+                  width: 50,
+                  height: 40,
                   tintColor: COLORS.black,
-                }} 
+                }}
               />
             </Pressable>
           ),
@@ -83,7 +97,10 @@ const InitToken: React.FC = () => {
         }}
       />
 
-      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: COLORS.gray }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ flex: 1, backgroundColor: COLORS.gray }}
+      >
         {isLoading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
         ) : (
@@ -96,42 +113,67 @@ const InitToken: React.FC = () => {
                 setModalVisible(false);
               }}
             >
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.blackTR }}>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  backgroundColor: COLORS.blackTR,
+                }}
+              >
                 <TouchableOpacity
                   style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
                   onPress={() => {
                     setModalVisible(false);
                   }}
                 />
-                <View style={{ 
-                  alignItems: 'center', 
-                  justifyContent: 'center', 
-                  backgroundColor: COLORS.white, 
-                  width: '90%', 
-                  height: '35%', 
-                  borderRadius: 20, 
-                  borderWidth: 2, 
-                  borderColor: COLORS.pandaPurple 
-                }}>
-                  <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 15 }}>
-                    <Text style={{ 
-                      color: COLORS.black, 
-                      fontSize: SIZES.medium, 
-                      fontFamily: 'RogueHero', 
-                      textAlign: 'center' 
-                    }}>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: COLORS.white,
+                    width: '90%',
+                    height: '35%',
+                    borderRadius: 20,
+                    borderWidth: 2,
+                    borderColor: COLORS.pandaPurple,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 15,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        fontSize: SIZES.medium,
+                        fontFamily: 'RogueHero',
+                        textAlign: 'center',
+                      }}
+                    >
                       You must set a token to use the application !
                     </Text>
-                    <Text style={{ 
-                      color: COLORS.black, 
-                      fontSize: SIZES.large, 
-                      fontFamily: 'RogueHero2', 
-                      textAlign: 'center' 
-                    }}>
+                    <Text
+                      style={{
+                        color: COLORS.black,
+                        fontSize: SIZES.large,
+                        fontFamily: 'RogueHero2',
+                        textAlign: 'center',
+                      }}
+                    >
                       Follow this link to get your token :
                     </Text>
                     <Pressable
-                      style={{ backgroundColor: COLORS.pandaPurple, padding: 10, borderRadius: 20, marginTop: 10 }}
+                      style={{
+                        backgroundColor: COLORS.pandaPurple,
+                        padding: 10,
+                        borderRadius: 20,
+                        marginTop: 10,
+                      }}
                       onPress={async () => {
                         setModalVisible(false);
                         try {
@@ -145,12 +187,14 @@ const InitToken: React.FC = () => {
                         }
                       }}
                     >
-                      <Text style={{ 
-                        color: COLORS.white, 
-                        fontSize: SIZES.large, 
-                        fontFamily: 'RogueHero2', 
-                        padding: 5 
-                      }}>
+                      <Text
+                        style={{
+                          color: COLORS.white,
+                          fontSize: SIZES.large,
+                          fontFamily: 'RogueHero2',
+                          padding: 5,
+                        }}
+                      >
                         pandascore.co
                       </Text>
                     </Pressable>
@@ -158,69 +202,175 @@ const InitToken: React.FC = () => {
                 </View>
               </View>
             </Modal>
-            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 10 }}>
-              <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.large, fontFamily: 'RogueHero2' }}>Token Panda</Text>
-              <Text style={{ color: COLORS.pandaPurple, fontSize: SIZES.large, fontFamily: 'RogueHero2' }}>Score</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: COLORS.pandaBlack,
+                  fontSize: SIZES.large,
+                  fontFamily: 'RogueHero2',
+                }}
+              >
+                Token Panda
+              </Text>
+              <Text
+                style={{
+                  color: COLORS.pandaPurple,
+                  fontSize: SIZES.large,
+                  fontFamily: 'RogueHero2',
+                }}
+              >
+                Score
+              </Text>
             </View>
-            <TextInput 
+            <TextInput
               style={{
                 backgroundColor: COLORS.gray2,
-                width: '90%', 
+                width: '90%',
                 height: '25%',
-                borderRadius: 20, 
+                borderRadius: 20,
                 borderWidth: 2,
-                borderColor: COLORS.pandaPurple, 
-                padding: 10, 
-                fontSize: SIZES.large, 
-                fontFamily: 'RogueHero2'
+                borderColor: COLORS.pandaPurple,
+                padding: 10,
+                fontSize: SIZES.large,
+                fontFamily: 'RogueHero2',
               }}
               placeholder="Token"
               value={token}
               onChangeText={(text) => setToken(text)}
             />
             <Pressable
-              style={{ backgroundColor: COLORS.pandaPurple, padding: 10, borderRadius: 20, marginTop: 10 }}
+              style={{
+                backgroundColor: COLORS.pandaPurple,
+                padding: 10,
+                borderRadius: 20,
+                marginTop: 10,
+              }}
               onPress={handlePressSave}
             >
-              <Text style={{ 
-                color: COLORS.white, 
-                fontSize: SIZES.large, 
-                fontFamily: 'RogueHero2', 
-                padding: 5 
-              }}>
+              <Text
+                style={{
+                  color: COLORS.white,
+                  fontSize: SIZES.large,
+                  fontFamily: 'RogueHero2',
+                  padding: 5,
+                }}
+              >
                 Save
               </Text>
             </Pressable>
           </View>
         )}
 
-        <View style={{ borderBottomColor: COLORS.pandaBlack, borderBottomWidth: 2, marginHorizontal: 20 }} />
-        <View style={{ borderBottomColor: COLORS.pandaPurple, borderBottomWidth: 2, marginHorizontal: 20 }} />
-        <View style={{ borderBottomColor: COLORS.pandaBlack, borderBottomWidth: 2, marginHorizontal: 20 }} />
+        <View
+          style={{
+            borderBottomColor: COLORS.pandaBlack,
+            borderBottomWidth: 2,
+            marginHorizontal: 20,
+          }}
+        />
+        <View
+          style={{
+            borderBottomColor: COLORS.pandaPurple,
+            borderBottomWidth: 2,
+            marginHorizontal: 20,
+          }}
+        />
+        <View
+          style={{
+            borderBottomColor: COLORS.pandaBlack,
+            borderBottomWidth: 2,
+            marginHorizontal: 20,
+          }}
+        />
 
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin: 20 }}>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.large, fontFamily: 'RogueHero2' }}>
+          <Text
+            style={{ color: COLORS.pandaBlack, fontSize: SIZES.large, fontFamily: 'RogueHero2' }}
+          >
             How to get your token ?
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             1. Click on the button on the top right and follow the link
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             2. Create an account or login
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             3. Go to your account
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             4. Copy your token
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             5. Paste it in the input
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             6. Click on save
           </Text>
-          <Text style={{ color: COLORS.pandaBlack, fontSize: SIZES.medium, fontFamily: 'RogueHero2', marginTop: 10, textAlign: 'center' }}>
+          <Text
+            style={{
+              color: COLORS.pandaBlack,
+              fontSize: SIZES.medium,
+              fontFamily: 'RogueHero2',
+              marginTop: 10,
+              textAlign: 'center',
+            }}
+          >
             7. Enjoy !
           </Text>
         </View>

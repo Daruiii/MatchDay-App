@@ -18,7 +18,7 @@ interface MatchRequestOptions {
   token: string;
   params: {
     'filter[status]'?: string;
-    'sort'?: string;
+    sort?: string;
     per_page: string;
   };
 }
@@ -42,25 +42,28 @@ const createMatchRequestOptions = (
 
 /**
  * Gérer les erreurs d'API communes
+ * @returns Le nouveau token si refresh réussi, null sinon
  */
-const handleApiError = async (error: unknown, router: Router | null): Promise<void> => {
+const handleApiError = async (error: unknown, router: Router | null): Promise<string | null> => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {
       const status = axiosError.response.status;
-      
+
       if (status === 429) {
         const token = await getSecureToken();
         if (token) {
-          refresh(token);
+          const newToken = await refresh(token);
+          return newToken; // Retourner le nouveau token pour retry
         }
       }
-      
+
       if (status === 401 && router) {
         router.replace('/token/initToken');
       }
     }
   }
+  return null;
 };
 
 /**
@@ -99,7 +102,29 @@ export const getPastMatches = async (
 
     return sortedMatches;
   } catch (error) {
-    await handleApiError(error, router);
+    // Tenter de refresh le token et retry une fois
+    const newToken = await handleApiError(error, router);
+    if (newToken) {
+      try {
+        const matchPromises = slugs.map(async (slug): Promise<Match[]> => {
+          const options = createMatchRequestOptions(slug, newToken, {
+            'filter[status]': 'finished',
+            sort: '-begin_at',
+            per_page: '25',
+          });
+          const response = await axios.request<Match[]>(options);
+          return response.data;
+        });
+
+        const matches = await Promise.all(matchPromises);
+        return matches
+          .flat()
+          .sort((a, b) => new Date(b.begin_at).getTime() - new Date(a.begin_at).getTime());
+      } catch (retryError) {
+        // Si retry échoue, abandonner
+        return [];
+      }
+    }
     return [];
   }
 };
@@ -140,7 +165,28 @@ export const getUpcomingMatches = async (
 
     return sortedMatches;
   } catch (error) {
-    await handleApiError(error, router);
+    // Tenter de refresh le token et retry une fois
+    const newToken = await handleApiError(error, router);
+    if (newToken) {
+      try {
+        const matchPromises = slugs.map(async (slug): Promise<Match[]> => {
+          const options = createMatchRequestOptions(slug, newToken, {
+            per_page: '15',
+          });
+          const response = await axios.request<Match[]>(options);
+          return response.data.filter(
+            (match) => match.status === 'not_started' || match.status === 'running'
+          );
+        });
+
+        const matches = await Promise.all(matchPromises);
+        return matches
+          .flat()
+          .sort((a, b) => new Date(a.begin_at).getTime() - new Date(b.begin_at).getTime());
+      } catch (retryError) {
+        return [];
+      }
+    }
     return [];
   }
 };

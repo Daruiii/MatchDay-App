@@ -41,25 +41,43 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
     slugs: team[0]?.slugs || [],
     disabledSlugs: team[0]?.disableSlugs || [],
     image_url: team[0]?.image_url || '',
-    notificate: team[0]?.notificate || false
+    notificate: team[0]?.notificate || false,
   });
 
   const handleAddGame = (slug: string) => {
     if (teamData.disabledSlugs.includes(slug)) {
       const updatedDisabledSlugs = teamData.disabledSlugs.filter((item) => item !== slug);
-      setTeamData({ ...teamData, slugs: [...teamData.slugs, slug], disabledSlugs: updatedDisabledSlugs });
+      setTeamData({
+        ...teamData,
+        slugs: [...teamData.slugs, slug],
+        disabledSlugs: updatedDisabledSlugs,
+      });
     }
   };
 
   const handleDisableGame = (slug: string) => {
     if (teamData.slugs.includes(slug)) {
       const updatedSlugs = teamData.slugs.filter((item) => item !== slug);
-      setTeamData({ ...teamData, slugs: updatedSlugs, disabledSlugs: [...teamData.disabledSlugs, slug] });
+      setTeamData({
+        ...teamData,
+        slugs: updatedSlugs,
+        disabledSlugs: [...teamData.disabledSlugs, slug],
+      });
     }
   };
 
   const handleSubmit = async () => {
-    const { teamName, backgroundColor, secondColor, eventColor, eventTextColor, slugs, disabledSlugs, image_url, notificate } = teamData;
+    const {
+      teamName,
+      backgroundColor,
+      secondColor,
+      eventColor,
+      eventTextColor,
+      slugs,
+      disabledSlugs,
+      image_url,
+      notificate,
+    } = teamData;
 
     if (!teamName) {
       Toast.show({
@@ -84,7 +102,7 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
       );
 
       await updateTeams((prevTeams) =>
-        prevTeams.map((t) => (t.teamName === team[0].teamName ? teamData as StoredTeam : t))
+        prevTeams.map((t) => (t.teamName === team[0].teamName ? (teamData as StoredTeam) : t))
       );
 
       router.replace('/');
@@ -106,9 +124,9 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
       {!team[0]?.teamName && (
         <>
           <Text style={styles.headText}>Team Name</Text>
-          <TextInput 
+          <TextInput
             style={styles.input}
-            placeholder={team[0]?.teamName ? team[0].teamName : "Team Name"}
+            placeholder={team[0]?.teamName ? team[0].teamName : 'Team Name'}
             onChangeText={(text) => setTeamData({ ...teamData, teamName: text })}
           />
         </>
@@ -124,7 +142,7 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
           ))}
         </View>
       )}
-      
+
       {team[0]?.teamName && teamData.slugs.length === 0 && (
         <>
           <Text style={styles.headText}>Selected games</Text>
@@ -143,7 +161,7 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
           ))}
         </View>
       )}
-      
+
       {team[0]?.teamName && teamData.disabledSlugs.length === 0 && (
         <>
           <View style={styles.headText}>
@@ -152,47 +170,47 @@ const TeamForm: React.FC<TeamFormProps> = ({ updateTeams, teams, team }) => {
         </>
       )}
 
-      <ColorPickerForm 
-        team={team} 
-        teamData={teamData} 
+      <ColorPickerForm
+        team={team}
+        teamData={teamData}
         setTeamData={setTeamData}
         onChangeText={(text) => setTeamData({ ...teamData, backgroundColor: text })}
         onColorChange={(color) => setTeamData({ ...teamData, backgroundColor: color })}
-        color={team[0]?.backgroundColor} 
-        dataToChange={teamData.backgroundColor} 
+        color={team[0]?.backgroundColor}
+        dataToChange={teamData.backgroundColor}
         text="Background Color"
       />
 
-      <ColorPickerForm 
-        team={team} 
-        teamData={teamData} 
+      <ColorPickerForm
+        team={team}
+        teamData={teamData}
         setTeamData={setTeamData}
         onChangeText={(text) => setTeamData({ ...teamData, secondColor: text })}
         onColorChange={(color) => setTeamData({ ...teamData, secondColor: color })}
-        text="Second Color" 
-        color={team[0]?.secondColor} 
+        text="Second Color"
+        color={team[0]?.secondColor}
         dataToChange={teamData.secondColor}
       />
 
-      <ColorPickerForm 
-        team={team} 
-        teamData={teamData} 
+      <ColorPickerForm
+        team={team}
+        teamData={teamData}
         setTeamData={setTeamData}
         onChangeText={(text) => setTeamData({ ...teamData, eventColor: text })}
         onColorChange={(color) => setTeamData({ ...teamData, eventColor: color })}
-        text="Event Color" 
-        color={team[0]?.eventColor} 
+        text="Event Color"
+        color={team[0]?.eventColor}
         dataToChange={teamData.eventColor}
       />
 
-      <ColorPickerForm 
-        team={team} 
-        teamData={teamData} 
+      <ColorPickerForm
+        team={team}
+        teamData={teamData}
         setTeamData={setTeamData}
         onChangeText={(text) => setTeamData({ ...teamData, eventTextColor: text })}
         onColorChange={(color) => setTeamData({ ...teamData, eventTextColor: color })}
-        text="Event Text Color" 
-        color={team[0]?.eventTextColor} 
+        text="Event Text Color"
+        color={team[0]?.eventTextColor}
         dataToChange={teamData.eventTextColor}
       />
 

@@ -1,53 +1,25 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, Dimensions, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   container: {
-    flexDirection: "column" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 50,
   },
   scrollContainer: {
-    width: "100%",
+    width: '100%',
   },
-  eventContainer: (bgColor: string, secondColor: string) => ({
-    width: Dimensions.get('window').width / 1.15,
-    height: 210,
-    flexDirection: "column" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-    backgroundColor: bgColor,
-    borderRadius: 10,
-    borderColor: secondColor,
-    marginRight: 10,
-    marginVertical: 10,
-  }),
   eventError: {
-    width: "100%",
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
+    width: '100%',
+    justifyContent: 'center',
   },
-  eventText: (textColor: string) => ({
-    color: textColor,
-    fontSize: SIZES.sMedium,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
-    fontFamily: "RogueHero2",
-  }),
-  eventTextVS: (textColor: string) => ({
-    color: textColor,
-    fontSize: SIZES.xxLarge,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
-    fontFamily: "RogueHero2",
-  }),
   eventNow: {
     padding: 5,
     borderRadius: 5,
-    textAlign: "center" as const,
-    justifyContent: "center" as const,
-    backgroundColor: "#6441a5",
+    justifyContent: 'center',
+    backgroundColor: '#6441a5',
     shadowColor: COLORS.white,
     shadowOffset: {
       width: 0,
@@ -56,27 +28,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-  eventCompetition: (secondColor: string) => ({
-    width: "100%",
-    textAlign: "center" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-    padding: 10,
-    borderBottomColor: secondColor,
-    borderBottomWidth: 1 / 2,
-  }),
   eventMatch: {
-    width: "75%",
+    width: '75%',
     marginTop: 10,
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   eventDateTime: {
-    width: "100%",
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "space-between" as const,
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 10,
     padding: 10,
   },
@@ -85,7 +48,51 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 30,
   },
-  eventGameImg: (secondColor: string) => ({
+  eventDate: {
+    flex: 1,
+  },
+  eventTime: {
+    flex: 1,
+    alignItems: 'flex-end',
+  },
+});
+
+const dynamicStyles = {
+  eventContainer: (bgColor: string, secondColor: string): ViewStyle => ({
+    width: Dimensions.get('window').width / 1.15,
+    height: 210,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: bgColor,
+    borderRadius: 10,
+    borderColor: secondColor,
+    marginRight: 10,
+    marginVertical: 10,
+  }),
+  eventText: (textColor: string): TextStyle => ({
+    color: textColor,
+    fontSize: SIZES.sMedium,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'RogueHero2',
+  }),
+  eventTextVS: (textColor: string): TextStyle => ({
+    color: textColor,
+    fontSize: SIZES.xxLarge,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: 'RogueHero2',
+  }),
+  eventCompetition: (secondColor: string): ViewStyle => ({
+    width: '100%',
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomColor: secondColor,
+    borderBottomWidth: 1 / 2,
+  }),
+  eventGameImg: (secondColor: string): ViewStyle => ({
     width: 26,
     borderRadius: 15,
     height: 26,
@@ -98,32 +105,25 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   }),
-  eventDate: {
-    flex: 1,
-  },
-  eventTime: {
-    flex: 1,
-    alignItems: "flex-end" as const,
-  },
-  headText: (textColor: string) => ({
+  headText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.large,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
   }),
-  btn: (name: string, activeTab: string, underLineColor: string) => ({
-    width: "50%",
-    height: "100%",
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    borderBottomColor: name === activeTab ? underLineColor : "transparent",
+  btn: (name: string, activeTab: string, underLineColor: string): ViewStyle => ({
+    width: '50%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: name === activeTab ? underLineColor : 'transparent',
     borderBottomWidth: 1,
   }),
-  btnText: (name: string, activeTab: string, textColor: string) => ({
+  btnText: (name: string, activeTab: string, textColor: string): TextStyle => ({
     fontSize: SIZES.medium,
-    fontWeight: "bold" as const,
+    fontWeight: 'bold',
     color: name === activeTab ? textColor : COLORS.gray2,
   }),
-});
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

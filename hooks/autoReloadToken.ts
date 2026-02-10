@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { storeObjectData } from '../storage/data';
+import { storeSecureToken } from '../storage/secureStorage';
 
 /**
  * Type pour le router Expo
@@ -23,8 +23,9 @@ interface RefreshTokenResponse {
  * Rafraîchir le token d'authentification PandaScore
  * @param token - Token actuel à rafraîchir
  * @param router - Router Expo optionnel pour redirection
+ * @returns Le nouveau token ou null en cas d'erreur
  */
-const refresh = async (token: string, router: Router | null = null): Promise<void> => {
+const refresh = async (token: string, router: Router | null = null): Promise<string | null> => {
   try {
     const optionsRefresh: AxiosRequestConfig = {
       method: 'PUT',
@@ -38,14 +39,15 @@ const refresh = async (token: string, router: Router | null = null): Promise<voi
     const response = await axios.request<RefreshTokenResponse['data']>(optionsRefresh);
     const newToken = response.data.data.token;
 
-    await storeObjectData('token', newToken);
+    await storeSecureToken(newToken);
 
     if (router) {
       router.replace('/');
     }
+
+    return newToken;
   } catch (error) {
-    // Error refreshing token - silently fail
-    // TODO: Consider adding proper error handling/logging
+    return null;
   }
 };
 

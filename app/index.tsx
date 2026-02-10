@@ -11,20 +11,11 @@ import {
 import { useRouter } from 'expo-router';
 
 import { COLORS, icons, SIZES } from '../constants';
-import {
-  Navbar,
-  FixedBtn,
-  UpcomingRow,
-  GradientBackground,
-  PageHeader,
-} from '../components';
+import { Navbar, FixedBtn, UpcomingRow, GradientBackground, PageHeader } from '../components';
 import { getNextMatch } from '../hooks/setNotifications';
 import { StoredTeam } from '../types/api';
 
-import {
-  getObjectData,
-  storeObjectData,
-} from '../storage/data';
+import { getObjectData, storeObjectData } from '../storage/data';
 import { hasValidToken } from '../storage/secureStorage';
 
 const Home: React.FC = () => {
@@ -107,11 +98,7 @@ const Home: React.FC = () => {
   return (
     <View style={{ flex: 1 }}>
       <GradientBackground>
-        <PageHeader
-          title="Home"
-          rightIcon={icons.settings}
-          onRightPress={handlePressSettings}
-        />
+        <PageHeader title="Home" rightIcon={icons.settings} onRightPress={handlePressSettings} />
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{ flex: 1 }}

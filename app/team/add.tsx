@@ -32,13 +32,15 @@ const Add: React.FC = () => {
     <View style={{ flex: 1 }}>
       <GradientBackground>
         <PageHeader title="New Team" />
-        <Text style={{ 
-          color: COLORS.white, 
-          fontSize: SIZES.medium, 
-          fontFamily: 'RogueHero2', 
-          marginTop: 20, 
-          textAlign: 'center' 
-        }}>
+        <Text
+          style={{
+            color: COLORS.white,
+            fontSize: SIZES.medium,
+            fontFamily: 'RogueHero2',
+            marginTop: 20,
+            textAlign: 'center',
+          }}
+        >
           ADD A TEAM
         </Text>
         <ScrollView>

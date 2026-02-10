@@ -1,22 +1,25 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ImageStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   container: {
-    flexDirection: 'row' as const,
-    justifyContent: 'space-between' as const,
-    alignItems: 'center' as const,
-    gap: 10
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
   },
   headText: {
     color: COLORS.gray,
     fontSize: SIZES.medium,
     fontFamily: 'RogueHero2',
   },
-  btnImg: (dimension: number) => ({
-    width: dimension,
-    height: dimension
-  }),
 });
 
-export default styles;
+const dynamicStyles = {
+  btnImg: (dimension: number): ImageStyle => ({
+    width: dimension,
+    height: dimension,
+  }),
+};
+
+export default { ...staticStyles, ...dynamicStyles };

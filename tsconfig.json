@@ -14,46 +14,19 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@components/*": [
-        "./components/*"
-      ],
-      "@hooks/*": [
-        "./hooks/*"
-      ],
-      "@utils/*": [
-        "./utils/*"
-      ],
-      "@constants": [
-        "./constants"
-      ],
-      "@constants/*": [
-        "./constants/*"
-      ],
-      "@storage/*": [
-        "./storage/*"
-      ],
-      "@contexts/*": [
-        "./contexts/*"
-      ],
-      "@config": [
-        "./config"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-      "@types/*": [
-        "./types/*"
-      ]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@utils/*": ["./utils/*"],
+      "@constants": ["./constants"],
+      "@constants/*": ["./constants/*"],
+      "@storage/*": ["./storage/*"],
+      "@contexts/*": ["./contexts/*"],
+      "@config": ["./config"],
+      "@config/*": ["./config/*"],
+      "@types/*": ["./types/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

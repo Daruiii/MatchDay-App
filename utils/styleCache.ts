@@ -32,18 +32,18 @@ export const createCachedStyles = <T>(
   const dimensions = getCachedDimensions();
   const styles = StyleSheet.create(styleFactory(dimensions) as any);
   cachedStyles.set(cacheKey, styles);
-  
+
   return styles as T;
 };
 
 export const createCardStyles = (cardType: 'default' | 'large' | 'compact' = 'default') => {
   const cacheKey = `card_${cardType}`;
-  
+
   return createCachedStyles((dimensions) => {
     const { width, height } = dimensions;
     const isLandscape = width > height;
     const cardWidth = isLandscape ? width * 0.45 : width * 0.9;
-    
+
     return {
       card: {
         width: cardWidth,
@@ -65,18 +65,18 @@ export const createCardStyles = (cardType: 'default' | 'large' | 'compact' = 'de
         borderRadius: 8,
         padding: 12,
         marginVertical: 6,
-      }
+      },
     };
   }, cacheKey);
 };
 
 export const createLayoutStyles = (layoutType: string = 'default') => {
   const cacheKey = `layout_${layoutType}`;
-  
+
   return createCachedStyles((dimensions) => {
     const { width, height } = dimensions;
     const isLandscape = width > height;
-    
+
     return {
       container: {
         flex: 1,
@@ -91,7 +91,7 @@ export const createLayoutStyles = (layoutType: string = 'default') => {
       column: {
         flex: isLandscape ? 1 : 0,
         marginHorizontal: isLandscape ? 10 : 0,
-      }
+      },
     };
   }, cacheKey);
 };
@@ -101,12 +101,12 @@ export const createLayoutStyles = (layoutType: string = 'default') => {
  */
 export const createTextStyles = (baseSize: number = 16) => {
   const cacheKey = `text_${baseSize}`;
-  
+
   return createCachedStyles((dimensions) => {
     const { width } = dimensions;
     const scale = width / 375;
     const fontSize = Math.round(baseSize * Math.min(scale, 1.3)); // Max 30% plus grand
-    
+
     return {
       title: {
         fontSize: fontSize * 1.5,
@@ -125,7 +125,7 @@ export const createTextStyles = (baseSize: number = 16) => {
       caption: {
         fontSize: fontSize * 0.85,
         lineHeight: fontSize * 0.85 * 1.3,
-      }
+      },
     };
   }, cacheKey);
 };
@@ -133,19 +133,16 @@ export const createTextStyles = (baseSize: number = 16) => {
 /**
  * Utilitaire pour créer des styles dynamiques avec memoization
  */
-export const createDynamicStyles = <T>(
-  styleProps: T,
-  dependencies: any[] = []
-): T => {
+export const createDynamicStyles = <T>(styleProps: T, dependencies: any[] = []): T => {
   const cacheKey = `dynamic_${JSON.stringify({ styleProps, dependencies })}`;
-  
+
   if (cachedStyles.has(cacheKey)) {
     return cachedStyles.get(cacheKey);
   }
-  
+
   const styles = StyleSheet.create(styleProps as any);
   cachedStyles.set(cacheKey, styles);
-  
+
   return styles as T;
 };
 
@@ -169,5 +166,5 @@ interface StyleCacheStats {
 export const getStyleCacheStats = (): StyleCacheStats => ({
   cacheSize: cachedStyles.size,
   hasDimensions: !!cachedDimensions,
-  cacheKeys: Array.from(cachedStyles.keys())
+  cacheKeys: Array.from(cachedStyles.keys()),
 });

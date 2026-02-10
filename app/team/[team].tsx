@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, RefreshControl } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
+import { COLORS } from '../../constants';
 
 import { icons } from '../../constants';
 import {
@@ -19,34 +20,17 @@ import { getObjectData, storeObjectData } from '../../storage/data';
 const Team: React.FC = () => {
   const router = useRouter();
   const params = useLocalSearchParams<{ team: string }>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const [team, setTeam] = useState<StoredTeam[]>([]);
 
   const tabs = ['UPCOMING', 'PAST'];
 
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
-  const [headerData, setHeaderData] = useState<string[]>([
-    'COMPETITION',
-    'MATCH',
-    'DATE',
-    'TIME',
-  ]);
+  const [headerData, setHeaderData] = useState<string[]>(['COMPETITION', 'MATCH', 'DATE', 'TIME']);
 
   const handlePressEdit = () => {
     router.push('/team/edit/' + params.team);
-  };
-
-  const displayTabsContent = (team: StoredTeam) => {
-    switch (activeTab) {
-      case tabs[0]:
-        return <Upcoming teamData={team} />;
-      case tabs[1]:
-        return <Past teamData={team} />;
-      default:
-        return <Upcoming teamData={team} />;
-    }
   };
 
   useEffect(() => {
@@ -68,23 +52,21 @@ const Team: React.FC = () => {
     });
 
     const fetchTeam = async () => {
-      setIsLoading(true);
       try {
         const data = await getObjectData<StoredTeam[]>('teams');
         if (data) {
-          const team = data.filter((team) => team.teamName === params.team);
-          setTeam(team);
+          const foundTeam = data.filter((t) => t.teamName === params.team);
+          setTeam(foundTeam);
         }
       } catch (err) {
-        setError((err as Error).message);
+        console.error('Error fetching team:', err);
       }
-      setIsLoading(false);
     };
     fetchTeam();
   }, [refreshing]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: team[0]?.backgroundColor }}>
+    <View style={{ flex: 1, backgroundColor: team[0]?.backgroundColor || COLORS.headerBg }}>
       <PageHeader
         title={params.team as string}
         rightIcon={icons.settings}
@@ -94,13 +76,13 @@ const Team: React.FC = () => {
         tabs={tabs}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        backgroundColor={team[0]?.eventColor}
-        secondColor={team[0]?.secondColor}
-        textColor={team[0]?.eventTextColor}
-        eventColor={team[0]?.eventColor}
+        backgroundColor={team[0]?.eventColor || COLORS.secondary}
+        secondColor={team[0]?.secondColor || COLORS.gray}
+        textColor={team[0]?.eventTextColor || COLORS.lightWhite}
+        eventColor={team[0]?.eventColor || COLORS.secondary}
       />
       <TeamHeader
-        secondColor={team[0]?.secondColor}
+        secondColor={team[0]?.secondColor || COLORS.gray}
         logo={team[0]?.image_url}
         data={headerData}
       />
@@ -108,7 +90,7 @@ const Team: React.FC = () => {
         showsVerticalScrollIndicator={false}
         style={{
           flex: 1,
-          backgroundColor: team[0]?.backgroundColor,
+          backgroundColor: team[0]?.backgroundColor || COLORS.headerBg,
         }}
         refreshControl={
           <RefreshControl
@@ -120,13 +102,13 @@ const Team: React.FC = () => {
           />
         }
       >
-        {team[0] && displayTabsContent(team[0])}
+        {activeTab === tabs[0] ? <Upcoming teamData={team[0]} /> : <Past teamData={team[0]} />}
       </ScrollView>
       <FixedBtn
         iconUrl={icons.filter2}
         dimension="100%"
         handlePress={handlePressEdit}
-        bgColor={team[0]?.eventColor}
+        bgColor={team[0]?.eventColor || COLORS.secondary}
       />
       <Navbar />
     </View>

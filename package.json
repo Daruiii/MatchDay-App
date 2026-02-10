@@ -6,7 +6,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "prettier:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "tsc": "tsc --noEmit",
+    "precommit": "npm run tsc && npm run lint && npm run prettier:check"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
@@ -47,7 +53,15 @@
     "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
     "@types/react": "^19.2.13",
     "@types/react-native": "^0.72.8",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0",
     "babel-plugin-module-resolver": "^5.0.2",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   },
   "private": true

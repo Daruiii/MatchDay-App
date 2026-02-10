@@ -1,30 +1,37 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
-  container: (secondColor: string) => ({
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
+const staticStyles = StyleSheet.create({
+  headerContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 30,
+    marginBottom: 20,
+  },
+  headerItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+const dynamicStyles = {
+  container: (secondColor: string): ViewStyle => ({
+    alignItems: 'center',
+    justifyContent: 'center',
     marginVertical: 20,
     borderBottomColor: secondColor,
     borderBottomWidth: 1 / 2,
     paddingBottom: 20,
   }),
-  headerContainer: {
-    width: "100%",
-    flexDirection: "row" as const,
-    alignItems: "center" as const,
-    justifyContent: "center" as const,
-    gap: 30,
-    marginBottom: 20,
-  },
-  headText: (textColor: string) => ({
+  headText: (textColor: string): TextStyle => ({
     color: textColor,
     fontSize: SIZES.small,
-    fontWeight: "bold" as const,
-    textAlign: "center" as const,
+    fontWeight: 'bold',
+    textAlign: 'center',
     fontFamily: 'RogueHero2',
   }),
-});
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

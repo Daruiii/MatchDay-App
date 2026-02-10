@@ -1,169 +1,178 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, Dimensions, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    backgroundColor: COLORS.blackTR
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.blackTR,
   },
   imgName: {
-    flexDirection: "row" as const,
-    justifyContent: "flex-start" as const,
-    alignItems: "center" as const,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     flex: 1,
     gap: 5,
   },
-  modalContainer: (bgColor?: string, borderColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "column" as const,
-    width: "75%",
+  eventGame: {
+    marginTop: 10,
+  },
+  modalBody: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginTop: 30,
+    marginBottom: 50,
+    height: '100%',
+    width: '100%',
+  },
+  modalBodyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+  },
+  modalBodyContent: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    borderRadius: 10,
+    padding: 10,
+  },
+});
+
+const dynamicStyles = {
+  modalContainer: (bgColor?: string, borderColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'column',
+    width: '75%',
     padding: 20,
     borderRadius: 10,
     margin: 60,
     borderWidth: 1,
-    borderColor: borderColor ? borderColor : COLORS.gray,
+    borderColor: borderColor || COLORS.gray,
   }),
-  modalHeader: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
+  modalHeader: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: 10,
     padding: 10,
     marginBottom: 10,
   }),
-  modalTitle: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
+  modalTitle: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
     fontSize: SIZES.small,
-    textAlign: "center" as const,
-    fontWeight: "bold" as const,
+    textAlign: 'center',
+    fontWeight: 'bold',
     marginVertical: 10,
-    fontFamily: "RogueHero2",
+    fontFamily: 'RogueHero2',
   }),
-  eventGame: {
-    marginTop: 10,
-  },
-  modalText: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
+  modalText: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
     fontSize: SIZES.small,
-    fontFamily: "RogueHero2",
+    fontFamily: 'RogueHero2',
   }),
-  modalBody: {
-    flexDirection: "column" as const,
-    justifyContent: "flex-start" as const,
-    alignItems: "center" as const,
-    marginTop: 30,
-    marginBottom: 50,
-    height: "100%",
-    width: "100%",
-  },
-  modalBodyHeader: {
-    flexDirection: "row" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
-    borderRadius: 10,
-    padding: 10,
-  },
-  modalBodyTitle: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
+  modalBodyTitle: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
     fontSize: SIZES.medium,
-    fontFamily: "RogueHero2",
-    textAlign: "center" as const,
+    fontFamily: 'RogueHero2',
+    textAlign: 'center',
   }),
-  modalBodyContent: {
-    flexDirection: "column" as const,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
-    width: "100%",
-    borderRadius: 10,
-    padding: 10,
-  },
-  modalBodyContentTitle: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "column" as const,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
+  modalBodyContentTitle: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
     marginVertical: 10,
     padding: 10,
   }),
-  modalBodyContentTeamText: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
+  modalBodyContentTeamText: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
     fontSize: SIZES.small,
-    fontFamily: "RogueHero2",
-    textAlign: "center" as const,
+    fontFamily: 'RogueHero2',
+    textAlign: 'center',
   }),
-  modalBodyContentTeamName: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
+  modalBodyContentTeamName: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
     fontSize: SIZES.small,
-    fontFamily: "RogueHero2",
+    fontFamily: 'RogueHero2',
     flex: 1,
   }),
-  modalBodyContentTeam: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "row" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
+  modalBodyContentTeam: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: 10,
     padding: 10,
   }),
-  modalBodyContentTeamRanking: (bgColor?: string) => ({
-    flexDirection: "column" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "flex-start" as const,
+  modalBodyContentTeamRanking: (bgColor?: string): ViewStyle => ({
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
     width: Dimensions.get('window').width / 1.4,
     gap: 10,
     borderRadius: 10,
     padding: 10,
   }),
-  modalBodyContentRanking: (bgColor?: string, myTeamSlug?: string, teamSlug?: string, secondColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    borderColor: (teamSlug && myTeamSlug && teamSlug.includes(myTeamSlug)) ? secondColor : "transparent",
+  modalBodyContentRanking: (
+    bgColor?: string,
+    myTeamSlug?: string,
+    teamSlug?: string,
+    secondColor?: string
+  ): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    borderColor:
+      teamSlug && myTeamSlug && teamSlug.includes(myTeamSlug) ? secondColor : 'transparent',
     borderWidth: 2,
-    flexDirection: "row" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: 10,
     padding: 10,
     gap: 8,
   }),
-  modalBodyContentTeamRankingLine: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "row" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
+  modalBodyContentTeamRankingLine: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: 10,
     padding: 10,
   }),
-  modalBodyContentScore: (bgColor?: string) => ({
-    backgroundColor: bgColor ? bgColor : COLORS.gray,
-    flexDirection: "row" as const,
-    justifyContent: "space-between" as const,
-    alignItems: "center" as const,
-    width: "100%",
+  modalBodyContentScore: (bgColor?: string): ViewStyle => ({
+    backgroundColor: bgColor || COLORS.gray,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
     borderRadius: 10,
     padding: 10,
   }),
-  modalBodyContentScoreText: (textColor?: string) => ({
-    color: textColor ? textColor : COLORS.white,
-    fontFamily: "RogueHero2",
+  modalBodyContentScoreText: (textColor?: string): TextStyle => ({
+    color: textColor || COLORS.white,
+    fontFamily: 'RogueHero2',
   }),
-  lineVertical: (color?: string) => ({
-    backgroundColor: color ? color : COLORS.gray,
+  lineVertical: (color?: string): ViewStyle => ({
+    backgroundColor: color || COLORS.gray,
     width: 1,
     height: 50,
   }),
-  line: (color?: string) => ({
-    backgroundColor: color ? color : COLORS.gray,
-    width: "100%",
+  line: (color?: string): ViewStyle => ({
+    backgroundColor: color || COLORS.gray,
+    width: '100%',
     height: 1,
-  })
-});
+  }),
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

@@ -22,8 +22,11 @@ const AddDefault: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [teams, setTeams] = useState<StoredTeam[]>([]);
-  const [selectedCountries, setSelectedCountries] = useState<CountryOption>({ value: 'ALL', label: 'All' });
-  
+  const [selectedCountries, setSelectedCountries] = useState<CountryOption>({
+    value: 'ALL',
+    label: 'All',
+  });
+
   const countryOptions: CountryOption[] = [
     { value: 'ALL', label: 'All' },
     { value: 'FR', label: (flagsData as any)['FR'].emoji },
@@ -42,12 +45,12 @@ const AddDefault: React.FC = () => {
 
   const addToMyTeam = async (team: StoredTeam) => {
     await addTeam(
-      team.teamName, 
-      team.backgroundColor, 
-      team.secondColor, 
-      team.eventColor, 
-      team.eventTextColor, 
-      team.slugs, 
+      team.teamName,
+      team.backgroundColor,
+      team.secondColor,
+      team.eventColor,
+      team.eventTextColor,
+      team.slugs,
       team.image_url
     );
     setTeams([...teams, team]);
@@ -61,7 +64,7 @@ const AddDefault: React.FC = () => {
   const filteredTeams = defaultTeams.filter((team) => {
     const isAlreadyInMyTeams = teams.find((t) => t.teamName === team.teamName);
     const isCountrySelected = selectedCountries.value === team.country;
-    
+
     if (selectedCountries.value === 'ALL') {
       return !isAlreadyInMyTeams;
     }
@@ -89,37 +92,43 @@ const AddDefault: React.FC = () => {
       <GradientBackground>
         <PageHeader title="Add Team" />
         <View style={{ flex: 1 }}>
-          <Pressable 
-            onPress={handlePressAdd} 
-            style={{ 
-              backgroundColor: COLORS.info, 
-              padding: 10, 
-              borderRadius: 10, 
-              marginHorizontal: 60, 
-              marginTop: 20 
+          <Pressable
+            onPress={handlePressAdd}
+            style={{
+              backgroundColor: COLORS.info,
+              padding: 10,
+              borderRadius: 10,
+              marginHorizontal: 60,
+              marginTop: 20,
             }}
           >
-            <Text style={{ 
-              color: COLORS.white, 
-              fontSize: SIZES.medium, 
-              fontFamily: 'RogueHero2', 
-              textAlign: 'center' 
-            }}>
+            <Text
+              style={{
+                color: COLORS.white,
+                fontSize: SIZES.medium,
+                fontFamily: 'RogueHero2',
+                textAlign: 'center',
+              }}
+            >
               Add a personnalised team !
             </Text>
           </Pressable>
-          <View style={{ 
-            flexDirection: 'row', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            marginTop: 20 
-          }}>
-            <Text style={{ 
-              color: COLORS.white, 
-              fontSize: SIZES.medium, 
-              fontFamily: 'RogueHero2', 
-              textAlign: 'center' 
-            }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              marginTop: 20,
+            }}
+          >
+            <Text
+              style={{
+                color: COLORS.white,
+                fontSize: SIZES.medium,
+                fontFamily: 'RogueHero2',
+                textAlign: 'center',
+              }}
+            >
               DEFAULT TEAMS
             </Text>
             <SelectDropdown
@@ -131,58 +140,63 @@ const AddDefault: React.FC = () => {
                 return `${selectedCountries.label}`;
               }}
               rowTextForSelection={(item: CountryOption) => item.label}
-              buttonStyle={{ 
-                backgroundColor: COLORS.info, 
-                marginHorizontal: 10, 
-                width: 75, 
-                height: 30, 
-                alignItems: 'center', 
-                justifyContent: 'center', 
-                borderRadius: 10 
-              }} 
-              buttonTextStyle={{ 
-                color: COLORS.white, 
-                fontSize: SIZES.small, 
-                fontFamily: 'RogueHero2', 
-                textAlign: 'center' 
+              buttonStyle={{
+                backgroundColor: COLORS.info,
+                marginHorizontal: 10,
+                width: 75,
+                height: 30,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 10,
               }}
-              dropdownStyle={{ 
-                backgroundColor: COLORS.info, 
-                borderRadius: 10 
+              buttonTextStyle={{
+                color: COLORS.white,
+                fontSize: SIZES.small,
+                fontFamily: 'RogueHero2',
+                textAlign: 'center',
               }}
-              rowStyle={{ 
-                borderBottomColor: COLORS.white, 
-                borderBottomWidth: 1, 
-                padding: 10 
+              dropdownStyle={{
+                backgroundColor: COLORS.info,
+                borderRadius: 10,
               }}
-              rowTextStyle={{ 
-                color: COLORS.white, 
-                fontSize: SIZES.medium, 
-                fontFamily: 'RogueHero2', 
-                textAlign: 'center' 
+              rowStyle={{
+                borderBottomColor: COLORS.white,
+                borderBottomWidth: 1,
+                padding: 10,
+              }}
+              rowTextStyle={{
+                color: COLORS.white,
+                fontSize: SIZES.medium,
+                fontFamily: 'RogueHero2',
+                textAlign: 'center',
               }}
             />
           </View>
           <ScrollView style={{ flex: 1, marginTop: 20 }}>
-            <View style={{ 
-              flexDirection: 'row', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              flexWrap: 'wrap', 
-              marginBottom: 95 
-            }}>
-              {defaultTeams.filter((team) => !teams.find((t) => t.teamName === team.teamName)).length > 0 ? (
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                marginBottom: 95,
+              }}
+            >
+              {defaultTeams.filter((team) => !teams.find((t) => t.teamName === team.teamName))
+                .length > 0 ? (
                 filteredTeams.map((team, index) => (
                   <DefaultTeams key={index} index={index} team={team} addTeam={addToMyTeam} />
                 ))
               ) : (
-                <Text style={{ 
-                  color: COLORS.gray, 
-                  fontSize: SIZES.medium, 
-                  fontFamily: 'RogueHero2', 
-                  marginTop: 20, 
-                  textAlign: 'center' 
-                }}>
+                <Text
+                  style={{
+                    color: COLORS.gray,
+                    fontSize: SIZES.medium,
+                    fontFamily: 'RogueHero2',
+                    marginTop: 20,
+                    textAlign: 'center',
+                  }}
+                >
                   No more teams to add
                 </Text>
               )}

@@ -149,8 +149,8 @@ export interface CacheEntry<T> {
 // Types pour les paramètres d'API
 export interface MatchQueryParams {
   'filter[status]'?: MatchStatus;
-  'sort'?: string;
-  'per_page'?: number | string;
+  sort?: string;
+  per_page?: number | string;
 }
 
 // Types pour les équipes stockées localement

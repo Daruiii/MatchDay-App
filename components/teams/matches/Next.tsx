@@ -38,16 +38,17 @@ const Next: React.FC<NextProps> = React.memo(({ teamData }) => {
 
   // Memoization des calculs de date
   const { beginAtDate, formattedTime, now, tomorrow } = React.useMemo(() => {
-    if (!matchData?.begin_at) return { beginAtDate: null, formattedTime: '', now: new Date(), tomorrow: new Date() };
-    
+    if (!matchData?.begin_at)
+      return { beginAtDate: null, formattedTime: '', now: new Date(), tomorrow: new Date() };
+
     const beginAtDate = new Date(matchData.begin_at);
     beginAtDate.setHours(beginAtDate.getHours() + 0);
     const formattedTime = `${String(beginAtDate.getHours()).padStart(2, '0')}:${String(beginAtDate.getMinutes()).padStart(2, '0')}`;
-    
+
     const now = new Date();
     const tomorrow = new Date(now);
     tomorrow.setDate(now.getDate() + 1);
-    
+
     return { beginAtDate, formattedTime, now, tomorrow };
   }, [matchData?.begin_at]);
 
@@ -68,66 +69,93 @@ const Next: React.FC<NextProps> = React.memo(({ teamData }) => {
             onPress={() => openTournamentModal(matchData?.tournament_id)}
           >
             {matchData?.league?.image_url === null ? (
-              <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>{matchData?.league?.name}</Text>
+              <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                {matchData?.league?.name}
+              </Text>
             ) : (
-              <Image source={{ uri: matchData?.league?.image_url }} style={{ width: 50, height: 50 }} resizeMode="contain" />
+              <Image
+                source={{ uri: matchData?.league?.image_url }}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
             )}
           </Pressable>
 
           <View style={styles.eventMatch}>
             <Pressable onPress={() => openRosterModal(matchData?.opponents[0]?.opponent?.id)}>
               {matchData?.opponents[0]?.opponent?.image_url === null ? (
-                <Text style={(styles.eventText as any)(teamData?.eventTextColor)}> {matchData?.opponents[0]?.opponent?.acronym}</Text>
+                <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                  {' '}
+                  {matchData?.opponents[0]?.opponent?.acronym}
+                </Text>
               ) : (
-                <Image source={{ uri: matchData?.opponents[0]?.opponent?.image_url }} style={{ width: 40, height: 40 }} resizeMode="contain" />
+                <Image
+                  source={{ uri: matchData?.opponents[0]?.opponent?.image_url }}
+                  style={{ width: 40, height: 40 }}
+                  resizeMode="contain"
+                />
               )}
             </Pressable>
             {matchData?.status === 'running' ? (
-              <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>{matchData?.results?.[0]?.score} - {matchData?.results?.[1]?.score}</Text>
+              <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                {matchData?.results?.[0]?.score} - {matchData?.results?.[1]?.score}
+              </Text>
             ) : (
               <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>VS</Text>
             )}
             <Pressable onPress={() => openRosterModal(matchData?.opponents[1]?.opponent?.id)}>
               {matchData?.opponents[1]?.opponent?.image_url === null ? (
-                <Text style={(styles.eventText as any)(teamData?.eventTextColor)}> {matchData?.opponents[1]?.opponent?.acronym}</Text>
+                <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                  {' '}
+                  {matchData?.opponents[1]?.opponent?.acronym}
+                </Text>
               ) : (
-                <Image source={{ uri: matchData?.opponents[1]?.opponent?.image_url }} style={{ width: 40, height: 40 }} resizeMode="contain" />
+                <Image
+                  source={{ uri: matchData?.opponents[1]?.opponent?.image_url }}
+                  style={{ width: 40, height: 40 }}
+                  resizeMode="contain"
+                />
               )}
             </Pressable>
           </View>
 
           <View style={styles.eventDate}>
             {matchData?.status === 'running' ? (
-              <Pressable onPress={() => router.push(matchData?.streams_list?.[0]?.raw_url)} style={styles.eventNow}>
-                <Text style={(styles.eventText as any)("white")}>Live !!</Text>
+              <Pressable
+                onPress={() => router.push(matchData?.streams_list?.[0]?.raw_url)}
+                style={styles.eventNow}
+              >
+                <Text style={(styles.eventText as any)('white')}>Live !!</Text>
               </Pressable>
             ) : (
-              beginAtDate && (
-                beginAtDate.getDate() === tomorrow.getDate() && beginAtDate.getMonth() === tomorrow.getMonth() && beginAtDate.getFullYear() === tomorrow.getFullYear()
-                  ? (
-                    <>
-                      <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>Tmrw</Text>
-                    </>
-                  ) : (
-                    beginAtDate.getDate() === now.getDate() && beginAtDate.getMonth() === now.getMonth() && beginAtDate.getFullYear() === now.getFullYear()
-                      ? (
-                        <>
-                          <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>Today</Text>
-                        </>
-                      ) : (
-                        <>
-                          <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>{matchData?.begin_at?.slice(8, 10)}/{matchData?.begin_at?.slice(5, 7)}</Text>
-                          <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>{matchData?.begin_at?.slice(0, 4)}</Text>
-                        </>
-                      ))
-              )
+              beginAtDate &&
+              (beginAtDate.getDate() === tomorrow.getDate() &&
+              beginAtDate.getMonth() === tomorrow.getMonth() &&
+              beginAtDate.getFullYear() === tomorrow.getFullYear() ? (
+                <>
+                  <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>Tmrw</Text>
+                </>
+              ) : beginAtDate.getDate() === now.getDate() &&
+                beginAtDate.getMonth() === now.getMonth() &&
+                beginAtDate.getFullYear() === now.getFullYear() ? (
+                <>
+                  <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>Today</Text>
+                </>
+              ) : (
+                <>
+                  <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                    {matchData?.begin_at?.slice(8, 10)}/{matchData?.begin_at?.slice(5, 7)}
+                  </Text>
+                  <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+                    {matchData?.begin_at?.slice(0, 4)}
+                  </Text>
+                </>
+              ))
             )}
           </View>
 
           <View style={styles.eventTime}>
-            <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
-              {formattedTime}
-            </Text>
+            <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>{formattedTime}</Text>
           </View>
 
           {/* notification button */}
@@ -154,12 +182,24 @@ const Next: React.FC<NextProps> = React.memo(({ teamData }) => {
       ) : (
         <View style={(styles.eventContainer as any)(teamData?.eventColor)}>
           <View style={styles.eventError}>
-            <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>No upcoming matches</Text>
+            <Text style={(styles.eventText as any)(teamData?.eventTextColor)}>
+              No upcoming matches
+            </Text>
           </View>
         </View>
       )}
-      <RosterModal teamId={selectedTeamId} rosterModalVisible={rosterModalVisible} setRosterModalVisible={setRosterModalVisible} colors={teamData} />
-      <TournamentModal tournamentId={selectedTournamentId} tournamentModalVisible={tournamentModalVisible} setTournamentModalVisible={setTournamentModalVisible} colors={teamData} />
+      <RosterModal
+        teamId={selectedTeamId}
+        rosterModalVisible={rosterModalVisible}
+        setRosterModalVisible={setRosterModalVisible}
+        colors={teamData}
+      />
+      <TournamentModal
+        tournamentId={selectedTournamentId}
+        tournamentModalVisible={tournamentModalVisible}
+        setTournamentModalVisible={setTournamentModalVisible}
+        colors={teamData}
+      />
     </View>
   );
 });

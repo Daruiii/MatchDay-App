@@ -5,7 +5,7 @@
 // Cache
 export const CACHE_CONFIG = {
   MATCHES_TTL: 5 * 60 * 1000, // 5 minutes en millisecondes
-  STALE_TIME: 2 * 60 * 1000,  // 2 minutes
+  STALE_TIME: 2 * 60 * 1000, // 2 minutes
 } as const;
 
 // Validation
@@ -19,8 +19,8 @@ export const VALIDATION = {
 // Timing
 export const TIMING = {
   NOTIFICATION_CLEANUP_DELAY: 5000, // 5 secondes
-  TOAST_DURATION: 3000,              // 3 secondes
-  DEBOUNCE_SEARCH: 300,              // 300ms pour la recherche
+  TOAST_DURATION: 3000, // 3 secondes
+  DEBOUNCE_SEARCH: 300, // 300ms pour la recherche
 } as const;
 
 // URLs autorisées (whitelist)

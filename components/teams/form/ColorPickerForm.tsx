@@ -23,13 +23,13 @@ const ColorPickerForm: React.FC<ColorPickerFormProps> = ({
   color,
   dataToChange,
   onChangeText,
-  onColorChange
+  onColorChange,
 }) => {
   return (
     <View>
       <View style={styles.colorPickerContainer}>
         <Text style={styles.headText}>{text}</Text>
-        <TextInput 
+        <TextInput
           style={styles.input}
           placeholder={text}
           value={dataToChange}

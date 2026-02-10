@@ -67,8 +67,8 @@ const Menu: React.FC = () => {
           rightIcon={icons.settings}
           onRightPress={handlePressSettings}
         />
-        <ScrollView 
-          showsVerticalScrollIndicator={false} 
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           style={{ flex: 1, marginBottom: 30 }}
           refreshControl={
             <RefreshControl
@@ -80,41 +80,47 @@ const Menu: React.FC = () => {
             />
           }
         >
-          <Text style={{ 
-            color: COLORS.lightWhite, 
-            fontSize: SIZES.medium, 
-            fontWeight: 'bold', 
-            marginVertical: 20, 
-            textAlign: 'center', 
-            fontFamily: 'RogueHero2' 
-          }}>
+          <Text
+            style={{
+              color: COLORS.lightWhite,
+              fontSize: SIZES.medium,
+              fontWeight: 'bold',
+              marginVertical: 20,
+              textAlign: 'center',
+              fontFamily: 'RogueHero2',
+            }}
+          >
             MY TEAMS
           </Text>
-          <View style={{ 
-            justifyContent: 'center', 
-            alignItems: 'center' 
-          }}>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             {isLoading ? (
               <ActivityIndicator size="large" color={COLORS.primary} />
             ) : error ? (
               <Text>Something went wrong</Text>
-            ) : teams.map((team) => (
-              <MyTeams
-                key={team.id}
-                team={team}
-                teams={teams}
-                updateTeams={setTeams}
-                iconUrl={team.image_url}
-                refresh={handleRefresh}
-              />
-            ))}
+            ) : (
+              teams.map((team) => (
+                <MyTeams
+                  key={team.id}
+                  team={team}
+                  teams={teams}
+                  updateTeams={setTeams}
+                  iconUrl={team.image_url}
+                  refresh={handleRefresh}
+                />
+              ))
+            )}
           </View>
         </ScrollView>
-        <FixedBtn 
-          iconUrl={icons.plus} 
-          dimension="60%" 
-          handlePress={handlePressAdd} 
-          bgColor={COLORS.addBtnBg} 
+        <FixedBtn
+          iconUrl={icons.plus}
+          dimension="60%"
+          handlePress={handlePressAdd}
+          bgColor={COLORS.addBtnBg}
         />
         <Navbar />
       </GradientBackground>

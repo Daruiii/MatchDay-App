@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { getObjectData } from '../storage/data';
+import { getSecureToken } from '../storage/secureStorage';
 import refresh from './autoReloadToken';
 import type { Team, Match, Standing } from '../types';
 
@@ -12,17 +12,22 @@ interface Router {
 
 /**
  * Gérer les erreurs d'API communes
+ * @returns Le nouveau token si refresh réussi, null sinon
  */
-const handleApiError = async (error: unknown, router: Router | null = null): Promise<void> => {
+const handleApiError = async (
+  error: unknown,
+  router: Router | null = null
+): Promise<string | null> => {
   if (axios.isAxiosError(error)) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {
       const status = axiosError.response.status;
 
       if (status === 429) {
-        const token = await getObjectData('token');
+        const token = await getSecureToken();
         if (token) {
-          refresh(token as string);
+          const newToken = await refresh(token);
+          return newToken; // Retourner le nouveau token pour retry
         }
       }
 
@@ -31,6 +36,7 @@ const handleApiError = async (error: unknown, router: Router | null = null): Pro
       }
     }
   }
+  return null;
 };
 
 /**
@@ -41,7 +47,11 @@ export const getModalData = async (
   router: Router | null = null
 ): Promise<Team | null> => {
   try {
-    const token = await getObjectData('token');
+    const token = await getSecureToken();
+
+    if (!token) {
+      return null;
+    }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
@@ -55,7 +65,24 @@ export const getModalData = async (
     const response = await axios.request<Team>(options);
     return response.data;
   } catch (error) {
-    await handleApiError(error, router);
+    // Tenter de refresh le token et retry une fois
+    const newToken = await handleApiError(error, router);
+    if (newToken) {
+      try {
+        const options: AxiosRequestConfig = {
+          method: 'GET',
+          url: `https://api.pandascore.co/teams/${teamId}`,
+          headers: {
+            accept: 'application/json',
+            authorization: `Bearer ${newToken}`,
+          },
+        };
+        const response = await axios.request<Team>(options);
+        return response.data;
+      } catch (retryError) {
+        return null;
+      }
+    }
     return null;
   }
 };
@@ -67,7 +94,11 @@ export const getModalTournamentRankingData = async (
   tournamentId: number
 ): Promise<Standing[] | null> => {
   try {
-    const token = await getObjectData('token');
+    const token = await getSecureToken();
+
+    if (!token) {
+      return null;
+    }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
@@ -81,7 +112,24 @@ export const getModalTournamentRankingData = async (
     const response = await axios.request<Standing[]>(options);
     return response.data;
   } catch (error) {
-    await handleApiError(error);
+    // Tenter de refresh le token et retry une fois
+    const newToken = await handleApiError(error);
+    if (newToken) {
+      try {
+        const options: AxiosRequestConfig = {
+          method: 'GET',
+          url: `https://api.pandascore.co/tournaments/${tournamentId}/standings`,
+          headers: {
+            accept: 'application/json',
+            authorization: `Bearer ${newToken}`,
+          },
+        };
+        const response = await axios.request<Standing[]>(options);
+        return response.data;
+      } catch (retryError) {
+        return null;
+      }
+    }
     return null;
   }
 };
@@ -94,7 +142,11 @@ export const getModalTournamentData = async (
   router: Router | null = null
 ): Promise<Match[] | null> => {
   try {
-    const token = await getObjectData('token');
+    const token = await getSecureToken();
+
+    if (!token) {
+      return null;
+    }
 
     const options: AxiosRequestConfig = {
       method: 'GET',
@@ -108,7 +160,24 @@ export const getModalTournamentData = async (
     const response = await axios.request<Match[]>(options);
     return response.data;
   } catch (error) {
-    await handleApiError(error, router);
+    // Tenter de refresh le token et retry une fois
+    const newToken = await handleApiError(error, router);
+    if (newToken) {
+      try {
+        const options: AxiosRequestConfig = {
+          method: 'GET',
+          url: `https://api.pandascore.co/tournaments/${tournamentId}/matches`,
+          headers: {
+            accept: 'application/json',
+            authorization: `Bearer ${newToken}`,
+          },
+        };
+        const response = await axios.request<Match[]>(options);
+        return response.data;
+      } catch (retryError) {
+        return null;
+      }
+    }
     return null;
   }
 };

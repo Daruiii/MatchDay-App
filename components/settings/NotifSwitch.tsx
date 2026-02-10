@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Switch, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { COLORS } from "../../constants";
+import { COLORS } from '../../constants';
 import { cancelAllScheduledNotifications } from '../../hooks/setNotifications';
 
 import styles from './notifSwitch.style';

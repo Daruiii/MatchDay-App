@@ -1,5 +1,6 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { getObjectData } from '../storage/data';
+import { getSecureToken } from '../storage/secureStorage';
 import refresh from './autoReloadToken';
 import type { Team } from '../types';
 
@@ -30,13 +31,17 @@ export interface TeamLogo {
  * Récupérer les logos de toutes les équipes stockées
  */
 const LogoApiData = async (router: Router | null = null): Promise<TeamLogo[] | undefined> => {
+  const teamData = await getObjectData<StoredTeam[]>('teams');
+  if (!teamData || teamData.length === 0) {
+    return [];
+  }
+
   try {
-    const teamData = await getObjectData<StoredTeam[]>('teams');
-    if (!teamData || teamData.length === 0) {
+    const token = await getSecureToken();
+
+    if (!token) {
       return [];
     }
-
-    const token = await getObjectData('token');
 
     // Fetch logos for each team
     const logoPromises = teamData.map(async (team): Promise<TeamLogo> => {
@@ -50,7 +55,7 @@ const LogoApiData = async (router: Router | null = null): Promise<TeamLogo[] | u
       };
 
       const response = await axios.request<Team[]>(options);
-      
+
       // Trouver le premier logo non-null
       let logoUrl: string | null = null;
       for (let i = 0; i < response.data.length; i++) {
@@ -75,9 +80,36 @@ const LogoApiData = async (router: Router | null = null): Promise<TeamLogo[] | u
         const status = axiosError.response.status;
 
         if (status === 429) {
-          const token = await getObjectData('token');
+          const token = await getSecureToken();
           if (token) {
-            refresh(token as string);
+            const newToken = await refresh(token);
+            // Retry avec le nouveau token
+            if (newToken) {
+              try {
+                const retryPromises = teamData.map(async (team): Promise<TeamLogo> => {
+                  const options: AxiosRequestConfig = {
+                    method: 'GET',
+                    url: `https://api.pandascore.co/teams?search[slug]=${team.teamName}`,
+                    headers: {
+                      accept: 'application/json',
+                      authorization: `Bearer ${newToken}`,
+                    },
+                  };
+                  const response = await axios.request<Team[]>(options);
+                  let logoUrl: string | null = null;
+                  for (let i = 0; i < response.data.length; i++) {
+                    if (response.data[i]?.image_url !== null) {
+                      logoUrl = response.data[i].image_url;
+                      break;
+                    }
+                  }
+                  return { teamName: team.teamName, logo: logoUrl };
+                });
+                return await Promise.all(retryPromises);
+              } catch (retryError) {
+                return undefined;
+              }
+            }
           }
           return undefined;
         }

@@ -5,7 +5,7 @@ import flagsData from '../../../storage/flagsData.json';
 import { Team, StoredTeam } from '../../../types/api';
 
 import styles from './rosterModal.style';
-import { images } from "../../../constants";
+import { images } from '../../../constants';
 
 interface RosterModalProps {
   teamId: number | null;
@@ -14,11 +14,11 @@ interface RosterModalProps {
   colors: StoredTeam;
 }
 
-const RosterModal: React.FC<RosterModalProps> = ({ 
-  teamId, 
-  rosterModalVisible, 
-  setRosterModalVisible, 
-  colors 
+const RosterModal: React.FC<RosterModalProps> = ({
+  teamId,
+  rosterModalVisible,
+  setRosterModalVisible,
+  colors,
 }) => {
   const [teamData, setTeamData] = useState<Team | null>(null);
 
@@ -47,13 +47,19 @@ const RosterModal: React.FC<RosterModalProps> = ({
           }}
         />
         {teamData ? (
-          <ScrollView 
+          <ScrollView
             style={(styles.modalContainer as any)(colors?.backgroundColor, colors?.eventColor)}
             contentContainerStyle={{ justifyContent: 'flex-start', alignItems: 'center' }}
           >
             <View style={(styles.modalHeader as any)(colors?.eventColor)}>
-              <Image source={{ uri: teamData?.image_url }} style={{ width: 50, height: 50 }} resizeMode='contain' />
-              <Text style={(styles.modalTitle as any)(colors?.eventTextColor)}>{teamData?.name}</Text>
+              <Image
+                source={{ uri: teamData?.image_url }}
+                style={{ width: 50, height: 50 }}
+                resizeMode="contain"
+              />
+              <Text style={(styles.modalTitle as any)(colors?.eventTextColor)}>
+                {teamData?.name}
+              </Text>
             </View>
             <View style={(styles.line as any)(colors?.secondColor)} />
 
@@ -61,26 +67,53 @@ const RosterModal: React.FC<RosterModalProps> = ({
               {(teamData as any)?.players?.map((player: any) => (
                 <View key={player?.id} style={(styles.playerContainer as any)(colors?.eventColor)}>
                   <View style={styles.playerInfo}>
-                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}>{player?.first_name}</Text>
-                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}> "{player?.name}" </Text>
-                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}>{player?.last_name}</Text>
+                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                      {player?.first_name}
+                    </Text>
+                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                      {' '}
+                      "{player?.name}"{' '}
+                    </Text>
+                    <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                      {player?.last_name}
+                    </Text>
                   </View>
                   {player?.image_url ? (
-                    <Image source={{ uri: player?.image_url }} style={styles.playerImg as any} resizeMode='contain' />
+                    <Image
+                      source={{ uri: player?.image_url }}
+                      style={styles.playerImg as any}
+                      resizeMode="contain"
+                    />
                   ) : (
-                    <Image source={images.unknown} style={styles.playerImg as any} resizeMode='contain' />
+                    <Image
+                      source={images.unknown}
+                      style={styles.playerImg as any}
+                      resizeMode="contain"
+                    />
                   )}
                   <View style={styles.playerInfo}>
                     {player?.role ? (
-                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}> {player?.role} -</Text>
+                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                        {' '}
+                        {player?.role} -
+                      </Text>
                     ) : null}
                     {player?.nationality && (flagsData as any)[player?.nationality] ? (
-                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}> {(flagsData as any)[player?.nationality].emoji}</Text>
+                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                        {' '}
+                        {(flagsData as any)[player?.nationality].emoji}
+                      </Text>
                     ) : (
-                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}> {player?.nationality}</Text>
+                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                        {' '}
+                        {player?.nationality}
+                      </Text>
                     )}
                     {player?.age ? (
-                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}> - {player?.age} yo</Text>
+                      <Text style={(styles.modalText as any)(colors?.eventTextColor)}>
+                        {' '}
+                        - {player?.age} yo
+                      </Text>
                     ) : null}
                   </View>
                 </View>
@@ -88,8 +121,8 @@ const RosterModal: React.FC<RosterModalProps> = ({
             </View>
           </ScrollView>
         ) : (
-          <View style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Loading...</Text>
+          <View style={styles.modalContainer()}>
+            <Text style={styles.modalTitle()}>Loading...</Text>
           </View>
         )}
       </View>

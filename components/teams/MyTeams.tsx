@@ -28,26 +28,24 @@ const MyTeams: React.FC<MyTeamsProps> = ({ team, updateTeams, teams, iconUrl, re
 
   return (
     <View style={(styles.container as any)(team.eventColor)}>
-      <View style={{
-        flexDirection: 'row', 
-        justifyContent: 'flex-start', 
-        alignItems: 'center'
-      }}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
         {iconUrl ? (
-          <NavbarBtn 
+          <NavbarBtn
             iconUrl={(icons as any)[iconUrl] ? (icons as any)[iconUrl] : { uri: iconUrl }}
-            dimension="60%" 
-            handlePress={() => {
-              router.push(`/team/${team.teamName}`);
-            }} 
+            dimension="60%"
+            handlePress={() => router.push(`/team/${team.teamName}`)}
           />
         ) : (
-          <NavbarBtn 
-            iconUrl={images.unknownTeam} 
+          <NavbarBtn
+            iconUrl={images.unknownTeam}
             dimension="60%"
-            handlePress={() => {
-              router.replace(`/team/${team.teamName}`);
-            }} 
+            handlePress={() => router.push(`/team/${team.teamName}`)}
           />
         )}
 
@@ -55,61 +53,61 @@ const MyTeams: React.FC<MyTeamsProps> = ({ team, updateTeams, teams, iconUrl, re
       </View>
       <View style={styles.btnContainer}>
         {team.notificate ? (
-          <EventBtn 
-            iconUrl={icons.notification} 
-            dimension="60%" 
+          <EventBtn
+            iconUrl={icons.notification}
+            dimension="60%"
             handlePress={() => {
               updateTeam(
-                team.teamName, 
-                team.backgroundColor, 
-                team.secondColor, 
-                team.eventColor, 
-                team.eventTextColor, 
-                team.slugs || [], 
-                team.disableSlugs || [], 
-                team.image_url, 
+                team.teamName,
+                team.backgroundColor,
+                team.secondColor,
+                team.eventColor,
+                team.eventTextColor,
+                team.slugs || [],
+                team.disableSlugs || [],
+                team.image_url,
                 false
               );
               cancelAllScheduledNotifications();
               refresh();
-            }} 
+            }}
           />
         ) : (
-          <EventBtn 
-            iconUrl={icons.notificationOff} 
-            dimension="60%" 
+          <EventBtn
+            iconUrl={icons.notificationOff}
+            dimension="60%"
             handlePress={() => {
               updateTeam(
-                team.teamName, 
-                team.backgroundColor, 
-                team.secondColor, 
-                team.eventColor, 
-                team.eventTextColor, 
-                team.slugs || [], 
-                team.disableSlugs || [], 
-                team.image_url, 
+                team.teamName,
+                team.backgroundColor,
+                team.secondColor,
+                team.eventColor,
+                team.eventTextColor,
+                team.slugs || [],
+                team.disableSlugs || [],
+                team.image_url,
                 true
               );
               refresh();
-            }} 
+            }}
           />
         )}
-        <EventBtn 
-          iconUrl={icons.filter} 
-          dimension="60%" 
+        <EventBtn
+          iconUrl={icons.filter}
+          dimension="60%"
           handlePress={() => {
             router.push(`/team/edit/${team.teamName}`);
-          }} 
+          }}
         />
-        <EventBtn 
-          iconUrl={icons.delet} 
-          dimension="60%" 
+        <EventBtn
+          iconUrl={icons.delet}
+          dimension="60%"
           handlePress={async () => {
             await deleteTeam(team.teamName);
-            await updateTeams(teams.filter(t => t.teamName !== team.teamName));
+            await updateTeams(teams.filter((t) => t.teamName !== team.teamName));
             cancelAllScheduledNotifications();
             refresh();
-          }} 
+          }}
         />
       </View>
     </View>

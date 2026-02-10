@@ -12,11 +12,7 @@ interface EventBtnProps {
 const EventBtn: React.FC<EventBtnProps> = ({ iconUrl, dimension, handlePress }) => {
   return (
     <TouchableOpacity style={styles.btnContainer} onPress={handlePress}>
-      <Image
-        source={iconUrl}
-        resizeMode='contain'
-        style={(styles.btnImg as any)(dimension)}
-      />
+      <Image source={iconUrl} resizeMode="contain" style={(styles.btnImg as any)(dimension)} />
     </TouchableOpacity>
   );
 };

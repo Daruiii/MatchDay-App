@@ -1,0 +1,11 @@
+# Prettier ignore
+node_modules/
+.expo/
+.expo-shared/
+dist/
+build/
+*.config.js
+babel.config.js
+coverage/
+*.log
+package-lock.json

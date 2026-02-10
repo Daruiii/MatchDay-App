@@ -12,15 +12,8 @@ interface FixedBtnProps {
 
 const FixedBtn: React.FC<FixedBtnProps> = ({ iconUrl, dimension, handlePress, bgColor }) => {
   return (
-    <TouchableOpacity 
-      style={(styles.btnContainer as any)(bgColor)} 
-      onPress={handlePress}
-    >
-      <Image
-        source={iconUrl}
-        resizeMode='contain'
-        style={[(styles.btnImg as any)(dimension)]}
-      />
+    <TouchableOpacity style={(styles.btnContainer as any)(bgColor)} onPress={handlePress}>
+      <Image source={iconUrl} resizeMode="contain" style={[(styles.btnImg as any)(dimension)]} />
     </TouchableOpacity>
   );
 };

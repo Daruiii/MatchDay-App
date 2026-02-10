@@ -1,25 +1,25 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
-  btnContainer: (activated: boolean) => ({
-    width: "auto" as const,
+const styles = {
+  btnContainer: (activated: boolean): ViewStyle => ({
+    width: 'auto',
     height: 30,
     backgroundColor: activated ? COLORS.success : COLORS.btnBg,
     borderRadius: SIZES.small / 1.25,
-    justifyContent: "space-between" as const,
+    justifyContent: 'space-between',
     padding: SIZES.xxSmall,
-    alignItems: "center" as const,
+    alignItems: 'center',
     margin: SIZES.xxSmall,
-    display: "flex" as const,
-    flexDirection: "row" as const,
+    display: 'flex',
+    flexDirection: 'row',
   }),
-  text: (activated: boolean) => ({
+  text: (activated: boolean): TextStyle => ({
     color: activated ? COLORS.white : COLORS.black,
     fontSize: SIZES.small,
-    fontFamily: "RogueHero2",
+    fontFamily: 'RogueHero2',
     margin: SIZES.xxSmall,
   }),
-});
+};
 
 export default styles;

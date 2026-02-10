@@ -1,20 +1,23 @@
-import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, ImageStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
+const staticStyles = StyleSheet.create({
   btnContainer: {
     width: 30,
     height: 30,
     backgroundColor: COLORS.whiteTR,
     borderRadius: SIZES.small,
-    justifyContent: "center" as const,
-    alignItems: "center" as const,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginHorizontal: 1,
   },
-  btnImg: (dimension: number) => ({
+});
+
+const dynamicStyles = {
+  btnImg: (dimension: number): ImageStyle => ({
     width: dimension,
     height: dimension,
   }),
-});
+};
 
-export default styles;
+export default { ...staticStyles, ...dynamicStyles };

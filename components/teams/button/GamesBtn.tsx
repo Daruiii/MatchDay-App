@@ -33,15 +33,15 @@ const GamesBtn: React.FC<GamesBtnProps> = ({ slug, handlePress, activated }) => 
   const imgName = (gamesLogo as any)[videoGameSlug]?.image;
 
   return (
-    <TouchableOpacity 
-      style={(styles.btnContainer as any)(activated)} 
+    <TouchableOpacity
+      style={(styles.btnContainer as any)(activated)}
       onPress={() => handlePress(slug)}
     >
       {videoGameSlug && (gamesLogo as any)[videoGameSlug] ? (
-        <Image 
-          source={(images as any)[imgName]} 
-          style={{ width: 23, height: 23 }} 
-          resizeMode='contain' 
+        <Image
+          source={(images as any)[imgName]}
+          style={{ width: 23, height: 23 }}
+          resizeMode="contain"
         />
       ) : null}
       <Text style={(styles.text as any)(activated)}>{name}</Text>

@@ -1,52 +1,52 @@
 {
-    "league-of-legends": {
-        "name": "League of Legend",
-        "description": "League of Legend is a MOBA game",
-        "image": "lol"
-    },
-    "dota-2": {
-        "name": "Dota 2",
-        "description": "Dota 2 is a MOBA game",
-        "image": "dota2"
-    },
-    "cs-go": {
-        "name": "CS:GO",
-        "description": "CS:GO is a FPS game",
-        "image": "csgo"
-    },
-    "lol-wild-rift": {
-        "name": "League of Legend: Wild Rift",
-        "description": "League of Legend: Wild Rift is a MOBA game",
-        "image": "lolWr"
-    },
-    "valorant": {
-        "name": "Valorant",
-        "description": "Valorant is a FPS game",
-        "image": "valo"
-    },
-    "rl": {
-        "name": "Rocket League",
-        "description": "Rocket League is a sport game",
-        "image": "rl"
-    },
-    "r6-siege" : {
-        "name": "Rainbow Six Siege",
-        "description": "Rainbow Six Siege is a FPS game",
-        "image": "R6"
-    },
-    "pubg": {
-        "name": "PUBG",
-        "description": "PUBG is a FPS game",
-        "image": "pubg"
-    },
-    "fifa": {
-        "name": "FIFA",
-        "description": "FIFA is a sport game",
-        "image": "FIFA"
-    },
-    "cod-mw": {
-        "name": "Call of Duty: Modern Warfare",
-        "description": "Call of Duty: Modern Warfare is a FPS game",
-        "image": "codmw"
-    }
+  "league-of-legends": {
+    "name": "League of Legend",
+    "description": "League of Legend is a MOBA game",
+    "image": "lol"
+  },
+  "dota-2": {
+    "name": "Dota 2",
+    "description": "Dota 2 is a MOBA game",
+    "image": "dota2"
+  },
+  "cs-go": {
+    "name": "CS:GO",
+    "description": "CS:GO is a FPS game",
+    "image": "csgo"
+  },
+  "lol-wild-rift": {
+    "name": "League of Legend: Wild Rift",
+    "description": "League of Legend: Wild Rift is a MOBA game",
+    "image": "lolWr"
+  },
+  "valorant": {
+    "name": "Valorant",
+    "description": "Valorant is a FPS game",
+    "image": "valo"
+  },
+  "rl": {
+    "name": "Rocket League",
+    "description": "Rocket League is a sport game",
+    "image": "rl"
+  },
+  "r6-siege": {
+    "name": "Rainbow Six Siege",
+    "description": "Rainbow Six Siege is a FPS game",
+    "image": "R6"
+  },
+  "pubg": {
+    "name": "PUBG",
+    "description": "PUBG is a FPS game",
+    "image": "pubg"
+  },
+  "fifa": {
+    "name": "FIFA",
+    "description": "FIFA is a sport game",
+    "image": "FIFA"
+  },
+  "cod-mw": {
+    "name": "Call of Duty: Modern Warfare",
+    "description": "Call of Duty: Modern Warfare is a FPS game",
+    "image": "codmw"
+  }
 }

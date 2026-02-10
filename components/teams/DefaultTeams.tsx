@@ -15,19 +15,19 @@ const DefaultTeams: React.FC<DefaultTeamsProps> = ({ index, team, addTeam }) => 
   const router = useRouter();
 
   return (
-    <Pressable 
-      key={index} 
-      onPress={() => { addTeam(team); }}
+    <Pressable
+      key={index}
+      onPress={() => {
+        addTeam(team);
+      }}
       style={(styles.container as any)(team?.secondColor, team?.eventColor)}
     >
-      <Image 
-        source={{ uri: team?.image_url }} 
-        style={{ width: 75, height: 75, margin: 10, alignSelf: 'center' }} 
-        resizeMode='contain' 
+      <Image
+        source={{ uri: team?.image_url }}
+        style={{ width: 75, height: 75, margin: 10, alignSelf: 'center' }}
+        resizeMode="contain"
       />
-      <Text style={(styles.headText as any)(team?.eventTextColor)}>
-        {team?.displayedName}
-      </Text>
+      <Text style={(styles.headText as any)(team?.eventTextColor)}>{team?.displayedName}</Text>
     </Pressable>
   );
 };

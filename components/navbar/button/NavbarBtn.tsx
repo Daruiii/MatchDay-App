@@ -12,11 +12,7 @@ interface NavbarBtnProps {
 const NavbarBtn: React.FC<NavbarBtnProps> = ({ iconUrl, dimension, handlePress }) => {
   return (
     <TouchableOpacity style={styles.btnContainer} onPress={handlePress}>
-      <Image
-        source={iconUrl}
-        resizeMode='contain'
-        style={[(styles.btnImg as any)(dimension)]}
-      />
+      <Image source={iconUrl} resizeMode="contain" style={[(styles.btnImg as any)(dimension)]} />
     </TouchableOpacity>
   );
 };

@@ -5,14 +5,16 @@ import * as SplashScreen from 'expo-splash-screen';
 import Toast from 'react-native-toast-message';
 import { AppProvider } from '../contexts/AppContext';
 import { preloadCriticalComponents } from '../components/lazy/LazyComponents';
+import { ErrorBoundary } from '../components';
+import { COLORS } from '../constants';
 
 // Empêcher le splash screen de se cacher automatiquement
 SplashScreen.preventAutoHideAsync();
 
 const Layout = () => {
   const [fontsLoaded, fontError] = useFonts({
-    'RogueHero': require('../assets/fonts/roguehero3d.ttf'),
-    'RogueHero2': require('../assets/fonts/roguehero-complete.ttf'),
+    RogueHero: require('../assets/fonts/roguehero3d.ttf'),
+    RogueHero2: require('../assets/fonts/roguehero-complete.ttf'),
   });
 
   useEffect(() => {
@@ -30,18 +32,16 @@ const Layout = () => {
   }
 
   return (
-    <AppProvider>
-      <Stack
-        screenOptions={{
-          headerShown: true,
-        }}
-      />
-      <Toast 
-        position='bottom'
-        bottomOffset={100}
-        visibilityTime={3500}
-      />
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <Stack
+          screenOptions={{
+            headerShown: true,
+          }}
+        />
+        <Toast position="bottom" bottomOffset={100} visibilityTime={3500} />
+      </AppProvider>
+    </ErrorBoundary>
   );
 };
 

@@ -21,7 +21,7 @@ const Update: React.FC = () => {
       try {
         const data = await getObjectData<StoredTeam[]>('teams');
         if (data) {
-          const team = data.filter(t => t.teamName === params.teamToUpdate);
+          const team = data.filter((t) => t.teamName === params.teamToUpdate);
           setTeam(team);
           setTeams(data);
         }
@@ -49,18 +49,20 @@ const Update: React.FC = () => {
         <PageHeader title="Edit" />
         <ScrollView>
           <View style={{ flex: 1, marginBottom: 90 }}>
-            <Image 
-              source={{ uri: team[0].image_url }} 
-              style={{ width: 40, height: 40, alignSelf: 'center', marginTop: 20 }} 
-              resizeMode='contain' 
+            <Image
+              source={{ uri: team[0].image_url }}
+              style={{ width: 40, height: 40, alignSelf: 'center', marginTop: 20 }}
+              resizeMode="contain"
             />
-            <Text style={{ 
-              color: COLORS.lightWhite, 
-              fontSize: SIZES.medium, 
-              fontFamily: 'RogueHero2', 
-              marginTop: 20, 
-              textAlign: 'center' 
-            }}>
+            <Text
+              style={{
+                color: COLORS.lightWhite,
+                fontSize: SIZES.medium,
+                fontFamily: 'RogueHero2',
+                marginTop: 20,
+                textAlign: 'center',
+              }}
+            >
               UPDATE TEAM
             </Text>
             <TeamForm updateTeams={setTeams} teams={teams} team={team} />

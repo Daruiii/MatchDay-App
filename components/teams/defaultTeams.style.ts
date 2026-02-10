@@ -1,30 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { COLORS, SIZES } from "@constants";
+import { StyleSheet, Dimensions, ViewStyle, TextStyle } from 'react-native';
+import { COLORS, SIZES } from '@constants';
 
-const styles = StyleSheet.create({
-  container: (secondColor: string, eventColor: string) => ({
-    width: Dimensions.get('window').width / 3.75,
-    flexDirection: 'column' as const,
-    justifyContent: 'center' as const,
-    alignItems: 'center' as const,
-    margin: 10,
-    backgroundColor: eventColor,
-    borderRadius: 10,
-    padding: 10,
-    borderColor: secondColor,
-    borderWidth: 1 / 3
-  }),
-  headText: (color: string) => ({
-    color: color,
-    fontSize: SIZES.xSmall,
-    fontFamily: "RogueHero2",
-    marginTop: 20,
-    textAlign: 'center' as const,
-    width: 90,
-    height: 40
-  }),
+const staticStyles = StyleSheet.create({
   btnContainer: {
-    flexDirection: "row" as const,
+    flexDirection: 'row',
   },
   contextText: {
     fontSize: SIZES.medium - 2,
@@ -38,4 +17,28 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+const dynamicStyles = {
+  container: (secondColor: string, eventColor: string): ViewStyle => ({
+    width: Dimensions.get('window').width / 3.75,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+    backgroundColor: eventColor,
+    borderRadius: 10,
+    padding: 10,
+    borderColor: secondColor,
+    borderWidth: 1 / 3,
+  }),
+  headText: (color: string): TextStyle => ({
+    color: color,
+    fontSize: SIZES.xSmall,
+    fontFamily: 'RogueHero2',
+    marginTop: 20,
+    textAlign: 'center',
+    width: 90,
+    height: 40,
+  }),
+};
+
+export default { ...staticStyles, ...dynamicStyles };
